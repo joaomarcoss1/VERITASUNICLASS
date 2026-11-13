@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fontes oficiais Veritas (OFL) — servidas localmente */
+@font-face { font-family: "Cormorant Garamond"; src: url("/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("/fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2"); font-weight: 600 700; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("/fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2"); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("/fonts/montserrat-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("/fonts/montserrat-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("/fonts/montserrat-latin-600-normal.woff2") format("woff2"); font-weight: 600 800; font-display: swap; }
+
+/*
+ * Tokens semânticos em canais RGB (para suportar /opacidade no Tailwind).
+ * Claro: base pergaminho, cards em "papel", tinta como cor primária.
+ * Escuro ("Biblioteca noturna"): fundo tinta, texto pergaminho, ouro clareado.
+ */
+:root {
+  --font-titulo: "Cormorant Garamond", Georgia, serif;
+  --font-texto: "Montserrat", system-ui, Arial, sans-serif;
+
+  --fundo: 245 240 230;          /* pergaminho */
+  --superficie: 251 248 242;     /* papel */
+  --superficie-alta: 255 255 255;
+  --texto: 42 45 51;             /* grafite */
+  --texto-suave: 92 94 99;
+  --borda: 217 210 195;          /* névoa */
+  --primaria: 14 27 46;          /* tinta */
+  --primaria-texto: 245 240 230;
+  --destaque: 184 147 90;        /* ouro veritas — superfícies/ícones */
+  --destaque-texto: 122 92 43;   /* ouro antigo — texto dourado em fundo claro */
+  --premium: 94 26 40;           /* vinho editorial */
+  --info: 43 65 102;
+  --acerto: 47 107 63;
+  --acerto-suave: 227 238 223;
+  --erro: 163 38 47;
+  --erro-suave: 246 225 223;
+  --revisar: 122 92 43;
+  --revisar-suave: 241 230 207;
+  color-scheme: light;
+}
+
+.dark {
+  --fundo: 11 21 36;
+  --superficie: 19 33 58;
+  --superficie-alta: 27 44 73;
+  --texto: 237 230 216;
+  --texto-suave: 185 178 164;
+  --borda: 42 58 87;
+  --primaria: 209 174 116;       /* no escuro, ação primária vira ouro */
+  --primaria-texto: 14 27 46;
+  --destaque: 209 174 116;
+  --destaque-texto: 209 174 116;
+  --premium: 236 138 143;
+  --info: 150 177 222;
+  --acerto: 125 190 139;
+  --acerto-suave: 26 54 40;
+  --erro: 236 138 143;
+  --erro-suave: 66 28 36;
+  --revisar: 209 174 116;
+  --revisar-suave: 58 46 26;
+  color-scheme: dark;
+}
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  body {
+    @apply bg-fundo text-texto font-sans antialiased;
+    font-feature-settings: "tnum" 0;
+  }
+  h1, h2, h3 { @apply text-texto; }
+  :focus-visible { outline: 2px solid rgb(var(--destaque)); outline-offset: 2px; border-radius: 6px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+}
+
+@layer components {
+  /* Números de estatística: algarismos tabulares para não "pular" ao atualizar */
+  .num { font-variant-numeric: tabular-nums; }
+  /* Título institucional (marca) */
+  .titulo-institucional { @apply font-titulo font-semibold tracking-wide; }
+  /* Filete dourado — elemento gráfico da marca */
+  .filete { height: 1px; background: linear-gradient(90deg, transparent, rgb(var(--destaque)), transparent); }
+  /* Textura sutil de pergaminho para áreas institucionais */
+  .textura-pergaminho {
+    background-image:
+      radial-gradient(rgba(184,147,90,.10) 1px, transparent 1px),
+      radial-gradient(rgba(184,147,90,.06) 1px, transparent 1px);
+    background-size: 22px 22px, 37px 37px;
+    background-position: 0 0, 11px 17px;
+  }
+}
