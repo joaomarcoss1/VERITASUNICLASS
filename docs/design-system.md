@@ -38,3 +38,15 @@ Os pares de contraste estão em `contrastPairs` (`src/lib/design/tokens.ts`) e s
 - Telas do dia a dia: leves (pergaminho + cards "papel"), tinta só no menu.
 - Solenidade (Cormorant, selo, filetes): login, certificados, conquistas, títulos de página.
 - Logo: tamanho mínimo do símbolo 24px; não distorcer, girar, recolorir ou aplicar sombra.
+
+## 4. Fundo, movimento e interações (camada premium)
+
+- **`FundoVeritas`** (`src/components/brand/fundo.tsx`): auroras em ouro e tinta, grão de papel, anéis heráldicos girando devagar, constelação de estrelas Veritas cintilando e o **símbolo oficial como marca d'água flutuante** (só translada — nunca gira nem distorce, como pede o manual). Variantes `estudo` (telas do aluno) e `institucional` (landing, login, faixa de abertura do painel). Tudo em CSS, sem custo de JavaScript.
+- **Cards de vidro** (`.cartao-premium`): fundo translúcido com desfoque, filete dourado no topo, elevação ao passar o mouse e um **holofote dourado que segue o cursor**.
+- **Reflexo** (`.reflexo`): brilho que atravessa botões, itens da missão e do menu ao passar o mouse; botões afundam levemente ao clicar.
+- **Números vivos**: contadores sobem de 0 até o valor, anéis e barras se preenchem ao abrir a tela, colunas da semana crescem uma a uma.
+- **Entradas escalonadas** (`.escalonado`) e transição suave a cada troca de tela; tela de carregamento com o símbolo respirando.
+- **Navegação**: item ativo com faixa dourada e estrela cintilando; topo e barra inferior em vidro tinta; gaveta deslizante no celular.
+- **Celebração**: ao concluir o onboarding, chuva de estrelas Veritas; botão "Iniciar sessão de estudo" com halo pulsante.
+- **Login**: selo com paralaxe suave seguindo o mouse, órbitas girando e frase rotativa.
+- **Acessibilidade**: com `prefers-reduced-motion`, todas as animações são desligadas e os contadores mostram o valor final direto.

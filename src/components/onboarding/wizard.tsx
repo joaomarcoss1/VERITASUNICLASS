@@ -8,6 +8,7 @@ import { gerarPlanoSemanal } from "@/lib/services/study-plan";
 import { montarMissao } from "@/lib/services/habit";
 import { disciplinas as coresDisc } from "@/lib/design/tokens";
 import { LogoUniClass } from "@/components/brand/logo";
+import { FundoVeritas } from "@/components/brand/fundo";
 import { Button } from "@/components/ui/button";
 import { cn, formatMinutos } from "@/lib/utils";
 
@@ -70,14 +71,15 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
   }
 
   return (
-    <div className="min-h-dvh bg-fundo">
-      <header className="bg-veritas-tinta px-5 py-4"><div className="mx-auto max-w-3xl"><LogoUniClass invertido /></div></header>
-      <div className="mx-auto max-w-3xl px-5 py-8">
+    <div className="relative min-h-dvh">
+      <FundoVeritas />
+      <header className="vidro-tinta sticky top-0 z-20 border-b border-veritas-ouro/20 px-5 py-4"><div className="mx-auto max-w-3xl"><LogoUniClass invertido /></div></header>
+      <div className="relative mx-auto max-w-3xl px-5 py-8">
         {/* Indicador de passos */}
         <ol className="mb-8 grid grid-cols-4 gap-2" aria-label="Etapas">
           {PASSOS.map(({ t, i: Icon }, idx) => (
             <li key={t} className="flex flex-col gap-2" aria-current={idx === passo ? "step" : undefined}>
-              <span className={cn("h-1.5 rounded-full", idx <= passo ? "bg-destaque" : "bg-borda")} />
+              <span className="h-1.5 overflow-hidden rounded-full bg-borda"><span className={cn("block h-full rounded-full bg-gradient-to-r from-[#9C7838] to-[#E2C68E] transition-all duration-700 ease-premium", idx <= passo ? "w-full" : "w-0")} /></span>
               <span className={cn("flex items-center gap-1.5 text-xs font-semibold", idx === passo ? "text-texto" : "text-texto-suave")}>
                 <Icon className="hidden h-3.5 w-3.5 sm:block" aria-hidden />{t}
               </span>
@@ -85,9 +87,9 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
           ))}
         </ol>
 
-        <div key={passo} className="animate-sobe-fade">
+        <div key={passo}>
           {passo === 0 && (
-            <section className="space-y-5">
+            <section className="escalonado space-y-5">
               <div>
                 <h1 className="titulo-institucional text-3xl sm:text-4xl">Qual é o seu objetivo?</h1>
                 <p className="mt-2 text-texto-suave">Tudo na plataforma vai se organizar em volta dele. Dá para trocar depois.</p>
@@ -95,7 +97,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
               <div className="grid gap-3">
                 {editais.map((e) => (
                   <button key={e.id} onClick={() => { setEditalId(e.id); setNaoSei(false); }} aria-pressed={editalId === e.id}
-                    className={cn("rounded-xl border bg-superficie p-4 text-left transition", editalId === e.id ? "border-destaque ring-2 ring-destaque/30" : "border-borda hover:border-destaque/60")}>
+                    className={cn("reflexo cartao-premium rounded-xl border p-4 text-left", editalId === e.id ? "border-destaque ring-2 ring-destaque/30" : "border-borda hover:border-destaque/60")}>
                     <div className="flex items-start justify-between gap-3">
                       <span className="font-semibold">{e.nome}</span>
                       <span className="shrink-0 rounded-full bg-veritas-tinta px-2.5 py-0.5 text-xs font-semibold text-veritas-pergaminho">{e.banca}</span>
@@ -104,7 +106,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
                   </button>
                 ))}
                 <button onClick={() => { setNaoSei(true); setEditalId(null); }} aria-pressed={naoSei}
-                  className={cn("rounded-xl border border-dashed bg-superficie p-4 text-left", naoSei ? "border-destaque ring-2 ring-destaque/30" : "border-borda")}>
+                  className={cn("cartao-premium rounded-xl border border-dashed p-4 text-left", naoSei ? "border-destaque ring-2 ring-destaque/30" : "border-borda")}>
                   <span className="font-semibold">Ainda não sei o concurso</span>
                   <p className="mt-1 text-sm text-texto-suave">Escolha uma área e começamos pela base comum.</p>
                 </button>
@@ -128,7 +130,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
           )}
 
           {passo === 1 && (
-            <section className="space-y-6">
+            <section className="escalonado space-y-6">
               <div>
                 <h1 className="titulo-institucional text-3xl sm:text-4xl">Quando você pode estudar?</h1>
                 <p className="mt-2 text-texto-suave">Seja realista: uma rotina possível vence uma rotina perfeita.</p>
@@ -156,7 +158,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
           )}
 
           {passo === 2 && (
-            <section className="space-y-5">
+            <section className="escalonado space-y-5">
               <div>
                 <h1 className="titulo-institucional text-3xl sm:text-4xl">Diagnóstico rápido</h1>
                 <p className="mt-2 text-texto-suave">
@@ -182,7 +184,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
           )}
 
           {passo === 3 && (
-            <section className="space-y-6">
+            <section className="escalonado space-y-6">
               <div>
                 <h1 className="titulo-institucional text-3xl sm:text-4xl">Sua rotina está pronta</h1>
                 <p className="mt-2 text-texto-suave">Mais tempo para o que pesa mais no edital e para onde você está mais fraco. Ela se reajusta sozinha conforme você estuda.</p>
@@ -196,11 +198,11 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
               <div className="overflow-x-auto">
                 <div className="grid min-w-[560px] gap-2" style={{ gridTemplateColumns: `repeat(${plano.length}, minmax(0,1fr))` }}>
                   {plano.map((dia) => (
-                    <div key={dia.diaSemana} className="rounded-xl border border-borda bg-superficie p-2.5">
+                    <div key={dia.diaSemana} className="cartao-premium rounded-xl border border-borda p-2.5">
                       <p className="mb-2 text-center text-xs font-semibold">{DIAS[dia.diaSemana]}</p>
                       <div className="space-y-1.5">
                         {dia.sessoes.map((s, i) => (
-                          <div key={i} className="rounded-md px-2 py-1.5 text-[0.7rem] leading-tight text-white" style={{ background: coresDisc[s.disciplinaId] ?? "#2B4166" }}>
+                          <div key={i} className="animate-sobe-fade rounded-md px-2 py-1.5 text-[0.7rem] leading-tight text-white shadow-sm transition hover:scale-[1.03]" style={{ background: coresDisc[s.disciplinaId] ?? "#2B4166" }}>
                             <span className="block truncate font-semibold">{s.disciplina}</span>
                             <span className="opacity-90">{s.tipo === "aula" ? "Teoria" : s.tipo === "questoes" ? "Questões" : "Revisão"} · {s.minutos}′</span>
                           </div>

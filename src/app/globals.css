@@ -91,3 +91,92 @@
     background-position: 0 0, 11px 17px;
   }
 }
+
+/* ===================================================================
+ * Camada premium — vidro, brilho dourado, entradas escalonadas
+ * =================================================================== */
+:root {
+  --vidro: 251 248 242;
+  --vidro-opacidade: .78;
+  --brilho-fundo-1: 184 147 90;   /* ouro */
+  --brilho-fundo-2: 43 65 102;    /* tinta 600 */
+  --marca-dagua: .045;
+}
+.dark {
+  --vidro: 19 33 58;
+  --vidro-opacidade: .72;
+  --brilho-fundo-1: 209 174 116;
+  --brilho-fundo-2: 30 49 80;
+  --marca-dagua: .06;
+}
+
+@layer components {
+  /* Card de vidro com holofote dourado que segue o cursor */
+  .cartao-premium {
+    position: relative;
+    isolation: isolate;
+    background: rgb(var(--vidro) / var(--vidro-opacidade));
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    backdrop-filter: blur(14px) saturate(1.2);
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s cubic-bezier(.2,.7,.2,1), border-color .35s;
+  }
+  .cartao-premium::before {
+    /* filete dourado superior */
+    content: ""; position: absolute; inset: 0 18% auto; height: 1px; z-index: 1;
+    background: linear-gradient(90deg, transparent, rgb(var(--destaque) / .7), transparent);
+    opacity: .7;
+  }
+  .cartao-premium::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1; pointer-events: none;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, -30%), rgb(var(--destaque) / .13), transparent 45%);
+    opacity: 0; transition: opacity .4s;
+  }
+  .cartao-premium:hover::after { opacity: 1; }
+  .cartao-premium:hover {
+    transform: translateY(-2px);
+    border-color: rgb(var(--destaque) / .45);
+    box-shadow: 0 1px 2px rgba(14,27,46,.06), 0 18px 40px -12px rgba(14,27,46,.18), 0 0 0 1px rgb(var(--destaque) / .12);
+  }
+
+  /* Reflexo que atravessa botões e itens ao passar o mouse */
+  .reflexo { position: relative; overflow: hidden; }
+  .reflexo::after {
+    content: ""; position: absolute; inset: -20% auto -20% 0; width: 40%; pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  .reflexo:hover::after { animation: reflexo 1.1s ease-out; }
+
+  /* Texto em ouro com brilho correndo */
+  .texto-ouro {
+    background: linear-gradient(100deg, #7A5C2B 20%, #D4B27A 40%, #F1DDB0 50%, #D4B27A 60%, #7A5C2B 80%);
+    background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: brilho-texto 7s linear infinite;
+  }
+  .dark .texto-ouro, .sobre-tinta .texto-ouro {
+    background-image: linear-gradient(100deg, #B8935A 20%, #E7CC94 40%, #FFF3D6 50%, #E7CC94 60%, #B8935A 80%);
+  }
+
+  /* Entradas escalonadas dos filhos */
+  .escalonado > * { animation: sobe-fade .6s cubic-bezier(.2,.7,.2,1) both; }
+  .escalonado > *:nth-child(1) { animation-delay: .02s; }
+  .escalonado > *:nth-child(2) { animation-delay: .08s; }
+  .escalonado > *:nth-child(3) { animation-delay: .14s; }
+  .escalonado > *:nth-child(4) { animation-delay: .20s; }
+  .escalonado > *:nth-child(5) { animation-delay: .26s; }
+  .escalonado > *:nth-child(6) { animation-delay: .32s; }
+  .escalonado > *:nth-child(n+7) { animation-delay: .38s; }
+
+  /* Vidro escuro (topo e barra inferior no celular) */
+  .vidro-tinta {
+    background: rgba(14, 27, 46, .82);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+  }
+
+  /* Grão de papel (ruído) */
+  .grao {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.48 0 0 0 0 0.36 0 0 0 0 0.17 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Hourglass } from "lucide-react";
 import type { PainelData } from "@/lib/data/types";
 import { Card, CardTitulo, Badge } from "@/components/ui/card";
-import { Anel } from "@/components/ui/progress";
+import { Anel, Contador } from "@/components/ui/progress";
 
 export function ObjetivoCard({ objetivo }: { objetivo: PainelData["objetivo"] }) {
   if (!objetivo) {
@@ -21,8 +21,8 @@ export function ObjetivoCard({ objetivo }: { objetivo: PainelData["objetivo"] })
       <p className="font-semibold leading-snug">{objetivo.titulo}</p>
       <div className="mt-1 flex items-center gap-2 text-sm text-texto-suave"><Badge className="bg-veritas-tinta text-veritas-pergaminho">{objetivo.banca}</Badge>{data}</div>
       <div className="mt-4 flex items-center gap-5">
-        <Anel valor={objetivo.coberturaEdital / 100} tamanho={88} espessura={8} cor="rgb(var(--info))" rotulo={`Cobertura do edital: ${objetivo.coberturaEdital}%`}>
-          <span className="num text-lg font-semibold">{objetivo.coberturaEdital}%</span>
+        <Anel valor={objetivo.coberturaEdital / 100} tamanho={88} espessura={8} rotulo={`Cobertura do edital: ${objetivo.coberturaEdital}%`}>
+          <Contador valor={objetivo.coberturaEdital} sufixo="%" className="text-lg font-semibold" />
         </Anel>
         <div className="text-sm">
           <p className="font-semibold">Cobertura do edital</p>

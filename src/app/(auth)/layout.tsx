@@ -1,19 +1,20 @@
-import { SeloUniClass } from "@/components/brand/selo";
 import { LogoUniClass } from "@/components/brand/logo";
-import { FraseRotativa } from "@/components/auth/frase-rotativa";
+import { FundoVeritas } from "@/components/brand/fundo";
+import { PainelInstitucional } from "@/components/auth/painel-institucional";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="grid min-h-dvh lg:grid-cols-2">
-      <aside className="textura-pergaminho relative hidden flex-col items-center justify-center overflow-hidden bg-veritas-tinta px-10 text-veritas-pergaminho lg:flex">
-        <SeloUniClass className="w-60 drop-shadow-2xl" />
-        <div className="filete mt-10 w-64" />
-        <FraseRotativa />
-        <p className="absolute bottom-6 text-xs tracking-[0.25em] text-veritas-ouro/70">ACADEMIA VERITAS UNICLASS</p>
-      </aside>
-      <main className="flex flex-col bg-fundo px-5 py-8 sm:px-10">
-        <div className="mb-8 rounded-xl bg-veritas-tinta px-4 py-3 lg:hidden"><LogoUniClass invertido /></div>
-        <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center">{children}</div>
+      <PainelInstitucional />
+      <main className="relative isolate flex flex-col px-5 py-8 sm:px-10">
+        <FundoVeritas fixo={false} />
+        <div className="sobre-tinta relative mb-8 overflow-hidden rounded-2xl px-4 py-3 lg:hidden">
+          <FundoVeritas variante="institucional" fixo={false} />
+          <LogoUniClass invertido />
+        </div>
+        <div className="cartao-premium relative mx-auto my-auto w-full max-w-md animate-sobe-fade rounded-[1.5rem] border border-borda/70 p-6 shadow-[0_30px_80px_-30px_rgba(14,27,46,.35)] sm:p-9">
+          {children}
+        </div>
       </main>
     </div>
   );

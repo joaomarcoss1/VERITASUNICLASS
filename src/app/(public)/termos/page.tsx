@@ -1,8 +1,10 @@
+import { FundoVeritas } from "@/components/brand/fundo";
 export const metadata = { title: "Termos de Uso" };
 
 export default function TermosPage() {
   return (
-    <article className="mx-auto max-w-leitura px-5 py-12 text-leitura">
+    <article className="cartao-premium relative mx-auto my-10 max-w-leitura rounded-[1.5rem] border border-borda/70 px-6 py-10 text-leitura sm:px-10">
+      <FundoVeritas />
       <h1 className="titulo-institucional mb-6 text-4xl">Termos de Uso</h1>
       <p className="mb-4 rounded-xl bg-revisar-suave p-4 text-sm text-revisar">Minuta — revisar com assessoria jurídica antes do lançamento.</p>
       <h2 className="mb-2 mt-6 text-xl font-semibold">Natureza dos cursos</h2>

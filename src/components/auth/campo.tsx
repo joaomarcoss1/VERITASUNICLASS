@@ -4,7 +4,7 @@ export function Campo({ rotulo, ...props }: InputHTMLAttributes<HTMLInputElement
   return (
     <label className="block">
       <span className="mb-1.5 block text-sm font-medium">{rotulo}</span>
-      <input {...props} className="h-12 w-full rounded-xl border border-borda bg-superficie-alta px-4 text-base text-texto placeholder:text-texto-suave/70 focus:border-destaque focus:outline-none focus:ring-2 focus:ring-destaque/30" />
+      <input {...props} className="h-12 w-full rounded-xl border border-borda bg-superficie-alta/80 px-4 text-base text-texto shadow-inner shadow-black/[.02] transition duration-300 placeholder:text-texto-suave/70 hover:border-destaque/40 focus:border-destaque focus:bg-superficie-alta focus:outline-none focus:ring-4 focus:ring-destaque/15" />
     </label>
   );
 }

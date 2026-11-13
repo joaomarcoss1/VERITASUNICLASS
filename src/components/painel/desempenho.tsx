@@ -4,6 +4,7 @@ import type { PainelData, Tendencia } from "@/lib/data/types";
 import { classificar } from "@/lib/services/habit";
 import { corDominio } from "@/lib/design/tokens";
 import { Card, CardTitulo } from "@/components/ui/card";
+import { Barra, Contador } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
 export function SetaTendencia({ t, className }: { t: Tendencia; className?: string }) {
@@ -27,7 +28,7 @@ export function DesempenhoRapido({ desempenho }: { desempenho: PainelData["desem
         <div className="sm:border-r sm:border-borda sm:pr-6">
           <p className="text-sm text-texto-suave">Acerto geral</p>
           <p className="num flex items-center gap-2 text-4xl font-semibold">
-            {desempenho.acertoGeral}%
+            <Contador valor={desempenho.acertoGeral} sufixo="%" />
             <SetaTendencia t={desempenho.tendencia} className="text-base" />
           </p>
           <p className="num text-xs text-texto-suave">{desempenho.deltaPontos >= 0 ? "+" : ""}{desempenho.deltaPontos} p.p. vs. 30 dias anteriores</p>
@@ -38,12 +39,15 @@ export function DesempenhoRapido({ desempenho }: { desempenho: PainelData["desem
             {fracas.map((d) => {
               const classe = classificar(d.dominio);
               return (
-                <li key={d.disciplinaId} className="flex items-center gap-3">
-                  <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: corDominio(d.dominio) }} aria-hidden />
-                  <span className="min-w-0 flex-1 truncate text-sm font-medium">{d.nome}</span>
-                  <span className="hidden text-xs text-texto-suave sm:inline">{classe}</span>
-                  <span className="num w-10 text-right text-sm font-semibold">{d.acerto}%</span>
-                  <SetaTendencia t={d.tendencia} />
+                <li key={d.disciplinaId} className="group rounded-lg px-1 py-0.5 transition hover:bg-borda/30">
+                  <div className="flex items-center gap-3">
+                    <span className="h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-white/40" style={{ background: corDominio(d.dominio) }} aria-hidden />
+                    <span className="min-w-0 flex-1 truncate text-sm font-medium">{d.nome}</span>
+                    <span className="hidden text-xs text-texto-suave sm:inline">{classe}</span>
+                    <span className="num w-10 text-right text-sm font-semibold">{d.acerto}%</span>
+                    <SetaTendencia t={d.tendencia} />
+                  </div>
+                  <Barra valor={d.dominio / 100} cor={corDominio(d.dominio)} rotulo={`Domínio em ${d.nome}`} className="ml-5 mt-1.5 h-1 w-auto" />
                 </li>
               );
             })}

@@ -74,7 +74,7 @@ export function StudyTimer() {
   return (
     <>
       {aberto && (
-        <div className="fixed bottom-36 right-4 z-40 w-[min(22rem,calc(100vw-2rem))] animate-sobe-fade rounded-xl2 border border-borda bg-superficie p-5 shadow-card lg:bottom-24" role="dialog" aria-label="Sessão de estudo">
+        <div className="cartao-premium fixed bottom-40 right-4 z-40 w-[min(22rem,calc(100vw-2rem))] animate-sobe-fade rounded-xl2 border border-destaque/30 p-5 shadow-[0_24px_60px_-20px_rgba(14,27,46,.5)] lg:bottom-24" role="dialog" aria-label="Sessão de estudo">
           <div className="mb-3 flex items-center justify-between">
             <p className="font-semibold">Sessão de estudo</p>
             <button onClick={() => setAberto(false)} className="grid h-8 w-8 place-items-center rounded-lg hover:bg-borda/40" aria-label="Minimizar"><X className="h-4 w-4" /></button>
@@ -120,12 +120,13 @@ export function StudyTimer() {
       <button
         onClick={() => setAberto((v) => !v)}
         className={cn(
-          "fixed bottom-20 right-4 z-40 inline-flex h-12 items-center gap-2 rounded-full px-5 text-sm font-semibold shadow-selo transition lg:bottom-6 lg:right-6",
-          estado ? "bg-veritas-tinta text-veritas-ouro ring-1 ring-veritas-ouro" : "bg-veritas-ouro text-veritas-tinta",
+          "group fixed bottom-24 right-4 z-40 inline-flex h-12 items-center gap-2 rounded-full px-5 text-sm font-semibold shadow-selo transition duration-300 ease-premium hover:-translate-y-0.5 active:scale-95 lg:bottom-6 lg:right-6",
+          estado ? "bg-veritas-tinta text-veritas-ouro ring-1 ring-veritas-ouro" : "bg-[linear-gradient(135deg,#E2C68E,#B8935A_45%,#9C7838)] text-veritas-tinta ring-1 ring-inset ring-white/30",
         )}
         aria-expanded={aberto}
       >
-        {estado ? <><Timer className="h-4 w-4" /><span className="num">{mmss(liquidoMs)}</span></> : <><Play className="h-4 w-4 fill-current" /> Iniciar sessão de estudo</>}
+        <span className={cn("pointer-events-none absolute inset-0 -z-10 animate-halo rounded-full", estado ? "bg-veritas-ouro/40" : "bg-veritas-ouro/50")} aria-hidden />
+        {estado ? <><Timer className="h-4 w-4" /><span className="num">{mmss(liquidoMs)}</span></> : <><Play className="h-4 w-4 fill-current" /><span className="sm:hidden">Estudar</span><span className="hidden sm:inline">Iniciar sessão de estudo</span></>}
       </button>
     </>
   );

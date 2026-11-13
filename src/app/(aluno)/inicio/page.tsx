@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { getPainel } from "@/lib/data/painel";
 import { MissaoDoDia } from "@/components/painel/missao";
@@ -8,6 +9,8 @@ import { DesempenhoRapido } from "@/components/painel/desempenho";
 import { RevisoesCard } from "@/components/painel/revisoes";
 import { ObjetivoCard } from "@/components/painel/objetivo";
 import { InsightsCard } from "@/components/painel/insights";
+import { HeroPainel } from "@/components/painel/hero";
+import { BoasVindas } from "@/components/painel/boas-vindas";
 import { nivelPorXp } from "@/lib/services/habit";
 
 export const metadata: Metadata = { title: "Início" };
@@ -24,18 +27,9 @@ export default async function InicioPage() {
   const nivel = nivelPorXp(painel.aluno.xpTotal);
 
   return (
-    <div className="space-y-6">
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-sm font-medium text-destaque-texto">{nivel.nome}</p>
-          <h1 className="titulo-institucional text-3xl sm:text-4xl">{saudacao()}, {painel.aluno.primeiroNome}.</h1>
-        </div>
-        {painel.objetivo?.diasRestantes != null && (
-          <p className="num text-sm text-texto-suave">
-            <strong className="text-texto">{painel.objetivo.diasRestantes} dias</strong> até a prova
-          </p>
-        )}
-      </header>
+    <div className="escalonado space-y-6">
+      <Suspense><BoasVindas /></Suspense>
+      <HeroPainel saudacao={saudacao()} nome={painel.aluno.primeiroNome} nivel={nivel.nome} dias={painel.objetivo?.diasRestantes ?? null} streak={painel.streak.atual} proximo={nivel.proximo} />
 
       {/* 1. Missão do dia  2. Sequência, XP e meta */}
       <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
