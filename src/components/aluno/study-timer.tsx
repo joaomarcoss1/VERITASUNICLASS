@@ -120,8 +120,8 @@ export function StudyTimer() {
       <button
         onClick={() => setAberto((v) => !v)}
         className={cn(
-          "group fixed bottom-24 right-4 z-40 inline-flex h-12 items-center gap-2 rounded-full px-5 text-sm font-semibold shadow-selo transition duration-300 ease-premium hover:-translate-y-0.5 active:scale-95 lg:bottom-6 lg:right-6",
-          estado ? "bg-veritas-tinta text-veritas-ouro ring-1 ring-veritas-ouro" : "bg-[linear-gradient(135deg,#E2C68E,#B8935A_45%,#9C7838)] text-veritas-tinta ring-1 ring-inset ring-white/30",
+          "group fixed bottom-24 right-4 z-40 inline-flex h-12 items-center gap-2 rounded-full px-5 text-sm font-semibold shadow-[0_6px_18px_-6px_rgba(14,27,46,.45)] transition duration-300 ease-premium hover:-translate-y-0.5 active:scale-95 lg:bottom-6 lg:right-6",
+          estado ? "bg-veritas-tinta text-veritas-ouro ring-1 ring-veritas-ouro" : "bg-veritas-ouro text-veritas-tinta",
         )}
         aria-expanded={aberto}
       >

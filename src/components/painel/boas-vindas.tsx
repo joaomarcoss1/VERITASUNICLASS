@@ -26,8 +26,8 @@ export function BoasVindas() {
             style={{ ["--dx" as string]: `${Math.cos(ang) * dist}px`, ["--dy" as string]: `${Math.sin(ang) * dist}px`, animationDelay: `${(i % 7) * 60}ms` }} />
         );
       })}
-      <div className="flex animate-sobe-fade flex-col items-center gap-3 rounded-2xl border border-veritas-ouro/40 bg-veritas-tinta/90 px-8 py-6 text-center text-veritas-pergaminho shadow-selo backdrop-blur">
-        <SimboloVeritas className="h-12 w-12 animate-respira" cor="ouro" />
+      <div className="flex animate-sobe-fade flex-col items-center gap-3 rounded-2xl border border-veritas-ouro/40 bg-veritas-tinta px-8 py-6 text-center text-veritas-pergaminho shadow-2xl">
+        <SimboloVeritas className="h-12 w-12" cor="ouro" />
         <p className="titulo-institucional text-2xl">Bem-vindo à Academia</p>
         <p className="text-sm text-veritas-pergaminho/70">Sua rotina foi criada. Vamos à primeira missão.</p>
       </div>

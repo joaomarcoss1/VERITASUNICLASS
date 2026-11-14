@@ -20,14 +20,13 @@ function NavLink({ href, label, icon: Icon, ativo, onClick, tabIndex }: { href: 
       className={cn(
         "group reflexo relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition duration-300 ease-premium",
         ativo
-          ? "bg-gradient-to-r from-veritas-ouro/20 via-veritas-ouro/[.07] to-transparent text-veritas-pergaminho shadow-[inset_0_0_0_1px_rgba(184,147,90,.25)]"
+          ? "bg-white/[.06] text-veritas-pergaminho"
           : "text-veritas-pergaminho/65 hover:translate-x-0.5 hover:bg-white/[.05] hover:text-veritas-pergaminho",
       )}
     >
-      <span className={cn("absolute left-0 top-1/2 w-[3px] -translate-y-1/2 rounded-r-full bg-gradient-to-b from-[#F1DDB0] to-veritas-ouro transition-all duration-300", ativo ? "h-6 opacity-100" : "h-0 opacity-0")} aria-hidden />
-      <Icon className={cn("h-[18px] w-[18px] transition-transform duration-300 group-hover:scale-110", ativo ? "text-veritas-ouro drop-shadow-[0_0_6px_rgba(184,147,90,.6)]" : "")} />
+      <span className={cn("absolute left-0 top-1/2 w-[3px] -translate-y-1/2 rounded-r-full bg-veritas-ouro transition-all duration-300", ativo ? "h-6 opacity-100" : "h-0 opacity-0")} aria-hidden />
+      <Icon className={cn("h-[18px] w-[18px] transition-transform duration-300 group-hover:scale-110", ativo ? "text-veritas-ouro" : "")} />
       <span className="flex-1">{label}</span>
-      {ativo && <EstrelaVeritas className="h-2.5 w-2.5 animate-cintila text-veritas-ouro" />}
     </Link>
   );
 }
@@ -64,7 +63,7 @@ export function AlunoShell({ children, nome, demo }: { children: ReactNode; nome
 
   const perfil = (
     <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[.04] px-3 py-2.5">
-      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[linear-gradient(135deg,#E2C68E,#9C7838)] text-xs font-bold text-veritas-tinta ring-2 ring-veritas-ouro/30">{iniciais}</span>
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-veritas-ouro text-xs font-bold text-veritas-tinta">{iniciais}</span>
       <span className="min-w-0 flex-1">
         <span className="block truncate text-sm font-medium text-veritas-pergaminho">{nome}</span>
         <span className="block text-[0.65rem] uppercase tracking-widest text-veritas-ouro/80">Aluno Veritas</span>
@@ -78,10 +77,9 @@ export function AlunoShell({ children, nome, demo }: { children: ReactNode; nome
       <FundoVeritas />
 
       {/* Menu lateral (desktop) */}
-      <aside className="sticky top-0 hidden h-dvh flex-col overflow-hidden bg-[linear-gradient(180deg,#0E1B2E_0%,#0C1727_60%,#0A1422_100%)] px-4 py-6 shadow-[8px_0_40px_-12px_rgba(14,27,46,.5)] lg:flex">
+      <aside className="sticky top-0 hidden h-dvh flex-col overflow-hidden bg-veritas-tinta px-4 py-6 lg:flex">
         <div className="pointer-events-none absolute inset-y-0 right-0 w-px bg-gradient-to-b from-transparent via-veritas-ouro/40 to-transparent" aria-hidden />
-        <SimboloMarcaDagua className="pointer-events-none absolute -bottom-10 -left-16 h-72 w-72 animate-flutua-lento text-veritas-ouro opacity-[.05]" />
-        <div className="pointer-events-none absolute -top-24 left-1/2 h-48 w-48 -translate-x-1/2 animate-respira rounded-full bg-veritas-ouro/15 blur-3xl" aria-hidden />
+        <SimboloMarcaDagua className="pointer-events-none absolute -bottom-12 -left-14 h-64 w-64 text-veritas-ouro opacity-[.12]" />
         <Link href="/inicio" className="relative mb-8 px-2 transition hover:opacity-90"><LogoUniClass invertido /></Link>
         <div className="relative flex-1 overflow-y-auto pr-1">{menu()}</div>
         <div className="relative mt-4">{perfil}</div>
@@ -89,7 +87,7 @@ export function AlunoShell({ children, nome, demo }: { children: ReactNode; nome
 
       <div className="relative min-w-0">
         {/* Topo (mobile) */}
-        <header className={cn("vidro-tinta sticky top-0 z-30 flex items-center justify-between border-b px-4 py-3 transition-shadow lg:hidden", rolou ? "border-veritas-ouro/20 shadow-lg" : "border-white/5")}>
+        <header className={cn("vidro-tinta sticky top-0 z-30 flex items-center justify-between border-b px-4 py-3 transition-shadow lg:hidden", rolou ? "border-veritas-ouro/25" : "border-white/5")}>
           <Link href="/inicio"><LogoUniClass invertido /></Link>
           <div className="flex items-center gap-1">
             <ThemeToggle />
@@ -100,7 +98,7 @@ export function AlunoShell({ children, nome, demo }: { children: ReactNode; nome
         </header>
 
         {demo && (
-          <div className="border-b border-revisar/20 bg-revisar-suave/80 px-4 py-2 text-center text-xs font-medium text-revisar backdrop-blur">
+          <div className="border-b border-revisar/20 bg-revisar-suave px-4 py-2 text-center text-xs font-medium text-revisar">
             <EstrelaVeritas className="mr-1.5 inline h-3 w-3 align-[-1px]" />
             Modo demonstração — dados fictícios. Configure o Supabase no <code>.env.local</code> para usar contas reais.
           </div>
@@ -111,9 +109,9 @@ export function AlunoShell({ children, nome, demo }: { children: ReactNode; nome
 
       {/* Gaveta (mobile) */}
       <div className={cn("fixed inset-0 z-50 lg:hidden", aberto ? "pointer-events-auto" : "pointer-events-none")} role="dialog" aria-modal="true" aria-label="Menu" aria-hidden={!aberto}>
-        <div className={cn("absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300", aberto ? "opacity-100" : "opacity-0")} onClick={() => setAberto(false)} />
+        <div className={cn("absolute inset-0 bg-veritas-tinta/50 transition-opacity duration-300", aberto ? "opacity-100" : "opacity-0")} onClick={() => setAberto(false)} />
         <div className={cn("absolute inset-y-0 right-0 flex w-[84%] max-w-xs flex-col overflow-hidden bg-veritas-tinta px-4 py-5 shadow-2xl transition-transform duration-500 ease-premium", aberto ? "translate-x-0" : "translate-x-full")}>
-          <SimboloMarcaDagua className="pointer-events-none absolute -bottom-10 -right-16 h-64 w-64 text-veritas-ouro opacity-[.06]" />
+          <SimboloMarcaDagua className="pointer-events-none absolute -bottom-10 -right-16 h-64 w-64 text-veritas-ouro opacity-[.12]" />
           <div className="relative mb-6 flex items-center justify-between">
             <LogoUniClass invertido />
             <button onClick={() => setAberto(false)} className="grid h-10 w-10 place-items-center rounded-xl text-veritas-pergaminho" aria-label="Fechar menu" tabIndex={aberto ? 0 : -1}><X className="h-5 w-5" /></button>

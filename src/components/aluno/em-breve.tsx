@@ -7,7 +7,7 @@ export function EmBreve({ titulo, fase, descricao, itens }: { titulo: string; fa
     <div className="space-y-6">
       <h1 className="titulo-institucional text-3xl sm:text-4xl">{titulo}</h1>
       <section className="cartao-premium relative overflow-hidden rounded-xl2 border border-borda p-6 shadow-card sm:p-8">
-        <SimboloMarcaDagua className="pointer-events-none absolute -right-8 -top-6 h-48 w-48 animate-flutua-lento text-destaque opacity-[.09]" />
+        <SimboloMarcaDagua className="pointer-events-none absolute -right-8 -top-6 h-48 w-48 text-destaque opacity-[.2]" />
         <p className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-revisar-suave px-3 py-1 text-xs font-semibold text-revisar"><Lock className="h-3.5 w-3.5" /> Chega na {fase}</p>
         <p className="max-w-leitura text-leitura">{descricao}</p>
         <ul className="escalonado mt-5 grid gap-1 sm:grid-cols-2">

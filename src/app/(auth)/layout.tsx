@@ -9,10 +9,10 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <main className="relative isolate flex flex-col px-5 py-8 sm:px-10">
         <FundoVeritas fixo={false} />
         <div className="sobre-tinta relative mb-8 overflow-hidden rounded-2xl px-4 py-3 lg:hidden">
-          <FundoVeritas variante="institucional" fixo={false} />
+          <FundoVeritas variante="institucional" fixo={false} gravura={false} />
           <LogoUniClass invertido />
         </div>
-        <div className="cartao-premium relative mx-auto my-auto w-full max-w-md animate-sobe-fade rounded-[1.5rem] border border-borda/70 p-6 shadow-[0_30px_80px_-30px_rgba(14,27,46,.35)] sm:p-9">
+        <div className="relative mx-auto my-auto w-full max-w-md animate-sobe-fade rounded-[1.25rem] border border-borda bg-superficie p-6 shadow-[0_1px_3px_rgba(14,27,46,.06),0_20px_50px_-30px_rgba(14,27,46,.25)] sm:p-9">
           {children}
         </div>
       </main>

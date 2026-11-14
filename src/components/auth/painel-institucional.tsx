@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { FundoVeritas, EstrelaVeritas } from "@/components/brand/fundo";
+import { FundoVeritas } from "@/components/brand/fundo";
 import { SeloUniClass } from "@/components/brand/selo";
 import { FraseRotativa } from "./frase-rotativa";
 
@@ -16,18 +16,12 @@ export function PainelInstitucional() {
   }
   return (
     <aside ref={ref} onMouseMove={mover} className="sobre-tinta relative isolate hidden flex-col items-center justify-center overflow-hidden px-10 text-veritas-pergaminho lg:flex" style={{ ["--px" as string]: 0, ["--py" as string]: 0 }}>
-      <FundoVeritas variante="institucional" fixo={false} />
+      <FundoVeritas variante="institucional" fixo={false} gravura={false} />
       <div className="relative grid place-items-center transition-transform duration-500 ease-premium" style={{ transform: "translate3d(calc(var(--px) * 18px), calc(var(--py) * 18px), 0)" }}>
-        <div className="absolute h-[26rem] w-[26rem] animate-gira-medio rounded-full border border-dashed border-veritas-ouro/20" aria-hidden />
-        <div className="absolute h-[20rem] w-[20rem] animate-gira-reverso rounded-full border border-veritas-ouro/15" aria-hidden>
-          <EstrelaVeritas className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 text-veritas-ouro" />
-          <EstrelaVeritas className="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 text-veritas-ouro/70" />
-        </div>
-        <div className="absolute h-56 w-56 animate-respira rounded-full bg-veritas-ouro/25 blur-3xl" aria-hidden />
+        <div className="absolute h-[24rem] w-[24rem] rounded-full border border-veritas-ouro/20" aria-hidden />
+        <div className="absolute h-[23.25rem] w-[23.25rem] rounded-full border border-veritas-ouro/10" aria-hidden />
         <div style={{ transform: "translate3d(calc(var(--px) * -10px), calc(var(--py) * -10px), 0)" }}>
-          <div className="animate-flutua">
-            <SeloUniClass className="relative w-64 drop-shadow-[0_30px_40px_rgba(0,0,0,.45)]" />
-          </div>
+          <SeloUniClass className="relative w-64 drop-shadow-[0_18px_24px_rgba(0,0,0,.35)]" />
         </div>
       </div>
       <div className="filete relative mt-14 w-64" />

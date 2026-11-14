@@ -79,7 +79,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
         <ol className="mb-8 grid grid-cols-4 gap-2" aria-label="Etapas">
           {PASSOS.map(({ t, i: Icon }, idx) => (
             <li key={t} className="flex flex-col gap-2" aria-current={idx === passo ? "step" : undefined}>
-              <span className="h-1.5 overflow-hidden rounded-full bg-borda"><span className={cn("block h-full rounded-full bg-gradient-to-r from-[#9C7838] to-[#E2C68E] transition-all duration-700 ease-premium", idx <= passo ? "w-full" : "w-0")} /></span>
+              <span className="h-1.5 overflow-hidden rounded-full bg-borda"><span className={cn("block h-full rounded-full bg-destaque transition-all duration-700 ease-premium", idx <= passo ? "w-full" : "w-0")} /></span>
               <span className={cn("flex items-center gap-1.5 text-xs font-semibold", idx === passo ? "text-texto" : "text-texto-suave")}>
                 <Icon className="hidden h-3.5 w-3.5 sm:block" aria-hidden />{t}
               </span>

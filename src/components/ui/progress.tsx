@@ -21,12 +21,11 @@ export function Anel({ valor, tamanho = 112, espessura = 10, cor, children, rotu
   const id = `anel-${tamanho}-${espessura}-${Math.round(valor * 1000)}`;
   return (
     <div className="relative inline-grid shrink-0 place-items-center" style={{ width: tamanho, height: tamanho }} role="img" aria-label={rotulo}>
-      <div className="absolute inset-2 rounded-full bg-destaque/10 blur-xl" aria-hidden />
       <svg width={tamanho} height={tamanho} className="-rotate-90">
         <defs>
           <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor={cor ?? "#E7CC94"} />
-            <stop offset="1" stopColor={cor ?? "#9C7838"} />
+            <stop offset="0" stopColor={cor ?? "rgb(var(--destaque))"} />
+            <stop offset="1" stopColor={cor ?? "rgb(var(--destaque))"} />
           </linearGradient>
         </defs>
         <circle cx={tamanho / 2} cy={tamanho / 2} r={r} fill="none" stroke="rgb(var(--borda))" strokeOpacity=".7" strokeWidth={espessura} />
@@ -48,11 +47,9 @@ export function Barra({ valor, className, cor, rotulo }: { valor: number; classN
   return (
     <div className={cn("h-2 w-full overflow-hidden rounded-full bg-borda/60", className)} role="progressbar" aria-label={rotulo} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(alvo * 100)}>
       <div
-        className="relative h-full overflow-hidden rounded-full transition-[width] duration-[1200ms] ease-premium"
-        style={{ width: `${v * 100}%`, background: cor ?? "linear-gradient(90deg, #9C7838, #D4B27A)" }}
-      >
-        <span className="absolute inset-y-0 w-1/3 animate-[reflexo_2.8s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-      </div>
+        className="h-full rounded-full transition-[width] duration-[1200ms] ease-premium"
+        style={{ width: `${v * 100}%`, background: cor ?? "rgb(var(--destaque))" }}
+      />
     </div>
   );
 }

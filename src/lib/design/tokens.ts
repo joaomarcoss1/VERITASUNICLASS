@@ -23,7 +23,8 @@ export const brand = {
 
 /** Extensão acadêmica — tons derivados, mesma temperatura editorial da marca. */
 export const academic = {
-  papel: "#FBF8F2", // superfície de card sobre pergaminho (leitura prolongada)
+  papel: "#FFFFFF", // fundo e cards no tema claro (branco editorial)
+  superficieAlta: "#FAF8F4", // linhas e campos — pergaminho bem diluído
   tinta700: "#1E3150",
   tinta600: "#2B4166", // informação / links
   tinta100: "#E2E7EF",
@@ -72,7 +73,10 @@ export const dark = {
 /** Pares de texto/fundo efetivamente usados na interface (validados em teste). */
 export const contrastPairs: Array<{ nome: string; texto: string; fundo: string; minimo: number }> = [
   { nome: "texto corrido no pergaminho", texto: brand.grafite, fundo: brand.pergaminho, minimo: 4.5 },
-  { nome: "texto corrido no papel", texto: brand.grafite, fundo: academic.papel, minimo: 4.5 },
+  { nome: "texto corrido no branco", texto: brand.grafite, fundo: academic.papel, minimo: 4.5 },
+  { nome: "texto suave no branco", texto: "#5C5E63", fundo: academic.papel, minimo: 4.5 },
+  { nome: "texto suave nas linhas", texto: "#5C5E63", fundo: academic.superficieAlta, minimo: 4.5 },
+  { nome: "ouro antigo nas linhas", texto: brand.ouroAntigo, fundo: academic.superficieAlta, minimo: 4.5 },
   { nome: "título tinta no pergaminho", texto: brand.tinta, fundo: brand.pergaminho, minimo: 4.5 },
   { nome: "ouro antigo (texto) no papel", texto: brand.ouroAntigo, fundo: academic.papel, minimo: 4.5 },
   { nome: "ouro sobre tinta (destaque)", texto: brand.ouro, fundo: brand.tinta, minimo: 4.5 },
