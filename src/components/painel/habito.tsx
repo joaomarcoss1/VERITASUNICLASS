@@ -5,14 +5,12 @@ import { Card, CardTitulo } from "@/components/ui/card";
 import { Anel, Barra, Contador } from "@/components/ui/progress";
 import { cn, formatMinutos } from "@/lib/utils";
 
-const DIAS = ["D", "S", "T", "Q", "Q", "S", "S"];
 
 export function HabitoCard({ streak, semana, xpSemana, nivel }: { streak: PainelData["streak"]; semana: PainelData["semana"]; xpSemana: number; nivel: ReturnType<typeof nivelPorXp> }) {
   const progresso = semana.metaMinutos ? semana.minutos / semana.metaMinutos : 0;
-  const maxDia = Math.max(60, ...semana.dias.map((d) => d.minutos));
   return (
     <Card>
-      <CardTitulo numero="II">Constância</CardTitulo>
+      <CardTitulo icone={<Flame />}>Constância</CardTitulo>
       <div className="flex items-center gap-5">
         <Anel valor={progresso} rotulo={`Meta semanal: ${Math.round(progresso * 100)}%`}>
           <div>
@@ -36,19 +34,6 @@ export function HabitoCard({ streak, semana, xpSemana, nivel }: { streak: Painel
       {streak.emRisco && (
         <p className="mt-4 rounded-[4px] bg-revisar-suave px-3 py-2 text-sm font-medium text-revisar">Sua sequência está em risco: cumpra a meta mínima hoje.</p>
       )}
-
-      {/* Mini-gráfico dos últimos 7 dias */}
-      <div className="mt-5 flex h-16 items-end gap-1.5" role="img" aria-label={`Minutos nos últimos 7 dias: ${semana.dias.map((d) => d.minutos).join(", ")}`}>
-        {semana.dias.map((d, i) => {
-          const dow = new Date(`${d.data}T12:00:00Z`).getUTCDay();
-          return (
-            <div key={d.data} className="flex flex-1 flex-col items-center gap-1">
-              <div title={`${d.minutos} min`} className={cn("w-full origin-bottom animate-cresce rounded-t-md transition hover:brightness-110", !d.minutos ? "bg-borda" : i === semana.dias.length - 1 ? "bg-primaria" : "bg-destaque/75")} style={{ height: `${Math.max(4, (d.minutos / maxDia) * 48)}px`, animationDelay: `${200 + i * 70}ms` }} />
-              <span className="text-[0.65rem] text-texto-suave">{DIAS[dow]}</span>
-            </div>
-          );
-        })}
-      </div>
 
       <div className="mt-4 border-t border-borda pt-3">
         <div className="mb-1.5 flex justify-between text-xs"><span className="font-semibold">{nivel.nome}</span>{nivel.proximo && <span className="num text-texto-suave">{nivel.faltam.toLocaleString("pt-BR")} XP para {nivel.proximo}</span>}</div>

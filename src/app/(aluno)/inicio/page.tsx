@@ -11,6 +11,10 @@ import { ObjetivoCard } from "@/components/painel/objetivo";
 import { InsightsCard } from "@/components/painel/insights";
 import { HeroPainel } from "@/components/painel/hero";
 import { BoasVindas } from "@/components/painel/boas-vindas";
+import { UltimosSeteDias } from "@/components/painel/estudo/ultimos-7-dias";
+import { MateriasEstudadas } from "@/components/painel/estudo/materias-estudadas";
+import { LinhaDoTempo } from "@/components/painel/estudo/linha-do-tempo";
+import { AtividadesRecentes } from "@/components/painel/estudo/atividades-recentes";
 import { nivelPorXp } from "@/lib/services/habit";
 
 export const metadata: Metadata = { title: "Início" };
@@ -29,21 +33,32 @@ export default async function InicioPage() {
   return (
     <div className="escalonado space-y-6">
       <Suspense><BoasVindas /></Suspense>
-      <HeroPainel saudacao={saudacao()} nome={painel.aluno.primeiroNome} nivel={nivel.nome} dias={painel.objetivo?.diasRestantes ?? null} streak={painel.streak.atual} proximo={nivel.proximo} />
+      <HeroPainel saudacao={saudacao()} nome={painel.aluno.primeiroNome} nivel={nivel.nome} dias={painel.objetivo?.diasRestantes ?? null} streak={painel.streak.atual} proximo={nivel.proximo}
+        sugestao={painel.missao.find((m) => !m.feito && m.disciplinaId)?.disciplinaId ?? null} />
 
-      {/* 1. Missão do dia  2. Sequência, XP e meta */}
-      <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
+      {/* Missão do dia + constância */}
+      <div className="grid items-start gap-6 lg:grid-cols-[1.55fr_1fr]">
         <MissaoDoDia itens={painel.missao} />
         <HabitoCard streak={painel.streak} semana={painel.semana} xpSemana={painel.aluno.xpSemana} nivel={nivel} />
       </div>
 
-      {/* 3. Continuar  4. Desempenho rápido */}
+      {/* Tempo de estudo */}
+      <div className="grid gap-6 xl:grid-cols-[1fr_1.45fr]">
+        <UltimosSeteDias estudo={painel.estudo} meta={painel.metaDiariaMinutos} />
+        <MateriasEstudadas estudo={painel.estudo} />
+      </div>
+      <div className="grid gap-6 xl:grid-cols-[1.45fr_1fr]">
+        <LinhaDoTempo estudo={painel.estudo} />
+        <AtividadesRecentes atividades={painel.atividades} />
+      </div>
+
+      {/* Continuar + desempenho */}
       <div className="grid gap-6 lg:grid-cols-[1fr_1.6fr]">
         <ContinuarCard item={painel.continuar} />
         <DesempenhoRapido desempenho={painel.desempenho} />
       </div>
 
-      {/* 5. Revisões e simulado  6. Contagem e cobertura  7. Insights */}
+      {/* Revisões, objetivo e insights */}
       <div className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-3">
         <RevisoesCard revisoes={painel.revisoesPendentes} simulado={painel.proximoSimulado} />
         <ObjetivoCard objetivo={painel.objetivo} />

@@ -116,6 +116,29 @@ export function getPainelDemo(): PainelData {
     revisoesPendentes: 12,
     proximoSimulado: { titulo: "Simulado semanal — TRT Técnico", quando: "segunda-feira", questoes: 45 },
     plano,
+    estudo: historico.map((d, i) => {
+      // Distribui os minutos do dia entre as disciplinas do plano (determinístico)
+      const ids = Object.keys(DOMINIO_DEMO);
+      const pesos = ids.map((id, k) => 1 + ((i * 7 + k * 13) % 5) + (100 - DOMINIO_DEMO[id].dominio) / 25);
+      const soma = pesos.reduce((a, b) => a + b, 0);
+      const porDisciplina: Record<string, number> = {};
+      let resto = d.minutos;
+      ids.forEach((id, k) => {
+        const m = k === ids.length - 1 ? resto : Math.round((d.minutos * pesos[k]) / soma);
+        porDisciplina[id] = Math.max(0, Math.min(resto, m));
+        resto -= porDisciplina[id];
+      });
+      return { data: d.data, minutos: d.minutos, porDisciplina };
+    }),
+    metaDiariaMinutos: 100,
+    atividades: [
+      { id: "a1", quando: `${hoje}T09:40:00-03:00`, disciplinaId: "portugues", tipo: "questoes", minutos: 25, questoes: 12, acertos: 10 },
+      { id: "a2", quando: `${hoje}T08:55:00-03:00`, disciplinaId: null, tipo: "revisao", minutos: 10 },
+      { id: "a3", quando: `${addDias(hoje, -1)}T21:10:00-03:00`, disciplinaId: "direito-constitucional", tipo: "aula", minutos: 19 },
+      { id: "a4", quando: `${addDias(hoje, -1)}T20:30:00-03:00`, disciplinaId: "raciocinio-logico", tipo: "questoes", minutos: 40, questoes: 18, acertos: 8 },
+      { id: "a5", quando: `${addDias(hoje, -3)}T19:05:00-03:00`, disciplinaId: "direito-administrativo", tipo: "simulado", minutos: 55, questoes: 30, acertos: 19 },
+      { id: "a6", quando: `${addDias(hoje, -3)}T07:15:00-03:00`, disciplinaId: "informatica", tipo: "aula", minutos: 16 },
+    ],
     insights: [
       { id: "1", titulo: "TRT-2 tem concurso autorizado com 120 vagas para técnico", resumo: "Comissão formada; a banca deve ser definida nas próximas semanas. Conteúdo deve seguir o último edital.", tag: "Tribunais", data: addDias(hoje, -1), fonteUrl: "https://www.gov.br" },
       { id: "2", titulo: "Nova súmula vinculante altera tema de concurso público", resumo: "Entendimento sobre nomeação de aprovados fora das vagas já foi incorporado ao comentário das questões afetadas.", tag: "Legislação", data: addDias(hoje, -3), fonteUrl: "https://portal.stf.jus.br" },

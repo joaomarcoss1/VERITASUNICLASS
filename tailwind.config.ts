@@ -67,6 +67,7 @@ const config: Config = {
         "estrela-sobe": { "0%": { opacity: "0", transform: "translate3d(0,0,0) scale(.4)" }, "15%": { opacity: "1" }, "100%": { opacity: "0", transform: "translate3d(var(--dx),var(--dy),0) scale(1)" } },
         "check-pop": { "0%": { transform: "scale(.4)" }, "60%": { transform: "scale(1.15)" }, "100%": { transform: "scale(1)" } },
         cresce: { from: { transform: "scaleY(0)" }, to: { transform: "scaleY(1)" } },
+        "cresce-x": { from: { transform: "scaleX(0)" }, to: { transform: "scaleX(1)" } },
         "linha-desenha": { from: { strokeDashoffset: "var(--comprimento)" }, to: { strokeDashoffset: "0" } },
       },
       animation: {

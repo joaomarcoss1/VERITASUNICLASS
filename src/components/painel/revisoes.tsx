@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Swords } from "lucide-react";
+import { Swords, Layers } from "lucide-react";
 import type { PainelData } from "@/lib/data/types";
 import { Card, CardTitulo } from "@/components/ui/card";
 import { Contador } from "@/components/ui/progress";
@@ -7,7 +7,7 @@ import { Contador } from "@/components/ui/progress";
 export function RevisoesCard({ revisoes, simulado }: { revisoes: number; simulado: PainelData["proximoSimulado"] }) {
   return (
     <Card>
-      <CardTitulo numero="V">Revisões e simulado</CardTitulo>
+      <CardTitulo icone={<Layers />}>Revisões e simulado</CardTitulo>
       <Link href="/fixacao" className="reflexo flex items-center justify-between rounded-[4px] border border-borda bg-superficie px-4 py-3 transition duration-300 hover:border-destaque/50 hover:bg-superficie-alta">
         <span>
           <span className="block font-semibold">Revisões pendentes</span>

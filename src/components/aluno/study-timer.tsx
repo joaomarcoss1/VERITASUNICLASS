@@ -5,7 +5,11 @@ import { DISCIPLINAS } from "@/lib/catalog";
 import { registrarSessao } from "@/app/actions/sessao";
 import { cn } from "@/lib/utils";
 
-type Estado = { inicio: string; acumuladoMs: number; retomadoEm: number | null; modo: "livre" | "pomodoro"; disciplinaId: string | null };
+type Estado = { inicio: string; acumuladoMs: number; retomadoEm: number | null; modo: "livre" | "pomodoro"; disciplinaId: string | null; conteudo?: string | null };
+
+/** Outros componentes (ex.: Início rápido) disparam este evento para abrir e iniciar uma sessão. */
+export const EVENTO_INICIAR = "vu:iniciar-sessao";
+export type DetalheIniciar = { disciplinaId: string | null; conteudo: string | null };
 const CHAVE = "vu-sessao";
 const FOCO = 25 * 60_000, PAUSA = 5 * 60_000;
 
@@ -35,6 +39,21 @@ export function StudyTimer() {
   const [salvando, iniciarTransicao] = useTransition();
 
   useEffect(() => setEstado(ler()), []);
+  useEffect(() => {
+    function ouvir(e: Event) {
+      const d = (e as CustomEvent<DetalheIniciar>).detail;
+      setMsg(null);
+      setAberto(true);
+      const atualEstado = ler();
+      if (atualEstado) return; // já existe sessão em andamento: só mostra o painel
+      const novo: Estado = { inicio: new Date().toISOString(), acumuladoMs: 0, retomadoEm: Date.now(), modo: "pomodoro", disciplinaId: d.disciplinaId, conteudo: d.conteudo };
+      setEstado(novo);
+      salvar(novo);
+      setAgora(Date.now());
+    }
+    window.addEventListener(EVENTO_INICIAR, ouvir);
+    return () => window.removeEventListener(EVENTO_INICIAR, ouvir);
+  }, []);
   useEffect(() => {
     if (!estado?.retomadoEm) return;
     const t = setInterval(() => setAgora(Date.now()), 1000);
@@ -83,6 +102,7 @@ export function StudyTimer() {
             <div className="text-center">
               <p className={cn("text-xs font-semibold uppercase tracking-widest", emPausa ? "text-acerto" : "text-destaque-texto")}>
                 {estado.modo === "pomodoro" ? (emPausa ? "Pausa — respire" : "Foco") : "Cronômetro livre"}
+                {estado.disciplinaId && <span className="mt-1 block normal-case tracking-normal text-texto-suave">{DISCIPLINAS.find((x) => x.id === estado.disciplinaId)?.nome}{estado.conteudo ? ` · ${estado.conteudo}` : ""}</span>}
               </p>
               <p className="num my-2 text-5xl font-semibold tracking-tight">{mmss(estado.modo === "pomodoro" ? restante : decorrido)}</p>
               <p className="num text-sm text-texto-suave">Tempo líquido: {mmss(liquidoMs)}</p>

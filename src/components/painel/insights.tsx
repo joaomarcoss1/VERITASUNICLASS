@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { Newspaper } from "lucide-react";
 import type { Noticia } from "@/lib/data/types";
 import { Card, CardTitulo, Badge } from "@/components/ui/card";
 
 export function InsightsCard({ noticias, className }: { noticias: Noticia[]; className?: string }) {
   return (
     <Card className={className}>
-      <CardTitulo numero="VII" acao={<Link href="/insights" className="text-sm font-semibold text-info hover:underline">Mais</Link>}>Insights</CardTitulo>
+      <CardTitulo icone={<Newspaper />} acao={<Link href="/insights" className="text-sm font-semibold text-info hover:underline">Mais</Link>}>Insights</CardTitulo>
       <ul className="divide-y divide-borda">
         {noticias.map((n) => (
           <li key={n.id} className="group -mx-2 rounded-[4px] px-2 py-3 transition first:pt-1 last:pb-1 hover:bg-borda/25">

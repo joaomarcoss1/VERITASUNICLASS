@@ -34,6 +34,15 @@ export const DISCIPLINAS = [
   { id: "direito-penal", nome: "Direito Penal", curto: "Penal" },
 ] as const;
 
+export const CONTEUDOS: Record<string, string[]> = {
+  portugues: ["Interpretação de texto", "Concordância verbal e nominal", "Regência e crase", "Pontuação", "Classes de palavras", "Coesão e coerência"],
+  "direito-constitucional": ["Princípios fundamentais", "Direitos e garantias fundamentais", "Remédios constitucionais", "Organização do Estado", "Poder Judiciário", "Administração Pública na CF"],
+  "direito-administrativo": ["Princípios da Administração", "Atos administrativos", "Poderes administrativos", "Licitações (Lei 14.133/2021)", "Agentes públicos", "Improbidade administrativa"],
+  "raciocinio-logico": ["Proposições e conectivos", "Equivalências lógicas", "Porcentagem", "Análise combinatória", "Probabilidade"],
+  informatica: ["Segurança da informação", "Redes e internet", "Planilhas eletrônicas", "Sistemas operacionais", "Computação em nuvem"],
+  "direito-penal": ["Aplicação da lei penal", "Teoria do crime", "Excludentes de ilicitude", "Crimes contra a Administração Pública"],
+};
+
 export type DisciplinaId = (typeof DISCIPLINAS)[number]["id"];
 
 export function nomeDisciplina(id: string, curto = false) {

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { BookOpen, Check, ChevronRight, ClipboardList, Layers, Swords } from "lucide-react";
+import { BookOpen, Check, ChevronRight, ClipboardList, Layers, Swords, Target } from "lucide-react";
 import { EstrelaVeritas } from "@/components/brand/fundo";
 import type { ItemMissao } from "@/lib/services/habit";
 import { disciplinas as coresDisc } from "@/lib/design/tokens";
@@ -20,7 +20,7 @@ export function MissaoDoDia({ itens }: { itens: ItemMissao[] }) {
 
   return (
     <Card fita className="relative">
-      <CardTitulo numero="I">Missão do dia</CardTitulo>
+      <CardTitulo icone={<Target />}>Missão do dia</CardTitulo>
 
       <div className="mb-4 flex items-center gap-3">
         <Barra valor={itens.length ? feitos / itens.length : 0} rotulo="Progresso da missão" className="h-2.5" />
@@ -52,7 +52,7 @@ export function MissaoDoDia({ itens }: { itens: ItemMissao[] }) {
                 >
                   {/* Lombada na cor da disciplina */}
                   <span className="absolute inset-y-2 left-0 w-[3px] rounded-full transition-all duration-300 group-hover:inset-y-0" style={{ background: item.feito ? "rgb(var(--acerto))" : cor }} aria-hidden />
-                  <span className="w-7 shrink-0 font-titulo text-xl font-semibold leading-none text-destaque-texto">{String(idx + 1).padStart(2, "0")}</span>
+                  <span className="num w-7 shrink-0 text-sm font-bold leading-none text-destaque-texto">{String(idx + 1).padStart(2, "0")}</span>
                   <span className="min-w-0 flex-1">
                     <span className={cn("flex items-center gap-2 font-semibold", item.feito && "text-texto-suave line-through decoration-acerto/60")}>
                       <span className="truncate">{item.titulo}</span>
@@ -66,7 +66,7 @@ export function MissaoDoDia({ itens }: { itens: ItemMissao[] }) {
                       <Check className="h-3 w-3" /> Feito
                     </span>
                   ) : (
-                    <span className="num inline-flex shrink-0 items-center gap-1 font-titulo text-base font-semibold text-texto">
+                    <span className="num inline-flex shrink-0 items-center gap-1 text-sm font-semibold text-texto">
                       {formatMinutos(item.minutos)}
                       <ChevronRight className="h-4 w-4 text-texto-suave transition-transform duration-300 group-hover:translate-x-1 group-hover:text-destaque-texto" aria-hidden />
                     </span>

@@ -12,6 +12,19 @@ export type DesempenhoDisciplina = {
   tendencia: Tendencia;
 };
 
+/** Minutos estudados num dia, no total e por disciplina (de daily_subject_stats). */
+export type DiaEstudo = { data: string; minutos: number; porDisciplina: Record<string, number> };
+
+export type Atividade = {
+  id: string;
+  quando: string; // ISO
+  disciplinaId: string | null;
+  tipo: "aula" | "questoes" | "revisao" | "simulado" | "livre";
+  minutos: number;
+  questoes?: number;
+  acertos?: number;
+};
+
 export type Noticia = { id: string; titulo: string; resumo: string; tag: string; data: string; fonteUrl: string };
 
 export type PainelData = {
@@ -34,5 +47,9 @@ export type PainelData = {
   revisoesPendentes: number;
   proximoSimulado: { titulo: string; quando: string; questoes: number } | null;
   plano: DiaPlano[];
+  /** Últimos 60 dias, do mais antigo ao mais novo (hoje por último). */
+  estudo: DiaEstudo[];
+  metaDiariaMinutos: number;
+  atividades: Atividade[];
   insights: Noticia[];
 };

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDownRight, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Crosshair } from "lucide-react";
 import type { PainelData, Tendencia } from "@/lib/data/types";
 import { classificar } from "@/lib/services/habit";
 import { corDominio } from "@/lib/design/tokens";
@@ -21,7 +21,7 @@ export function DesempenhoRapido({ desempenho }: { desempenho: PainelData["desem
   const fracas = [...desempenho.disciplinas].sort((a, b) => a.dominio - b.dominio).slice(0, 3);
   return (
     <Card>
-      <CardTitulo numero="IV" acao={<Link href="/desempenho" className="text-sm font-semibold text-info hover:underline">Ver tudo</Link>}>
+      <CardTitulo icone={<Crosshair />} acao={<Link href="/desempenho" className="text-sm font-semibold text-info hover:underline">Ver tudo</Link>}>
         Desempenho rápido
       </CardTitulo>
       <div className="grid gap-5 sm:grid-cols-[auto_1fr] sm:items-center">

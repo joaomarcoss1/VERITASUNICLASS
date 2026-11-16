@@ -97,26 +97,27 @@
  * Nada de vidro fosco, degradê em texto ou brilho difuso.
  * =================================================================== */
 @layer components {
-  /* "Prancha": papel branco, cantos quase retos, moldura dupla interna
-     em ouro (como ex-libris e certificados) e sombra de papel sobre a mesa. */
+  /* Card: branco, cantos generosos, sombra em duas camadas e brilho de
+     ouro no topo ao passar o mouse. */
   .cartao-premium {
     position: relative;
-    background: rgb(var(--superficie) / .92);
-    box-shadow: 0 1px 0 rgb(var(--borda)), 0 18px 32px -26px rgba(14,27,46,.45);
-    transition: box-shadow .3s ease, border-color .3s ease;
-  }
-  .cartao-premium::after {
-    content: ""; position: absolute; inset: 5px; border: 1px solid rgb(var(--destaque) / .22); border-radius: 2px; pointer-events: none;
-    transition: border-color .3s ease;
+    background: rgb(var(--superficie) / .94);
+    box-shadow: 0 1px 2px rgba(14,27,46,.04), 0 12px 32px -18px rgba(14,27,46,.22);
+    transition: box-shadow .35s ease, transform .35s cubic-bezier(.2,.7,.2,1), border-color .35s ease;
   }
   .cartao-premium::before {
-    content: ""; position: absolute; left: 5px; right: 5px; top: 5px; height: 2px; z-index: 1;
-    background: rgb(var(--destaque));
-    transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.2,.7,.2,1);
+    content: ""; position: absolute; left: 22px; right: 22px; top: -1px; height: 3px; border-radius: 0 0 3px 3px; z-index: 1;
+    background: linear-gradient(90deg, #0E1B2E, #B8935A 60%, #5E1A28);
+    transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.2,.7,.2,1);
   }
   .cartao-premium:hover::before { transform: scaleX(1); }
-  .cartao-premium:hover::after { border-color: rgb(var(--destaque) / .45); }
-  .cartao-premium:hover { box-shadow: 0 1px 0 rgb(var(--borda)), 0 24px 40px -26px rgba(14,27,46,.55); }
+  .cartao-premium:hover { transform: translateY(-2px); border-color: rgb(var(--destaque) / .35); box-shadow: 0 1px 2px rgba(14,27,46,.04), 0 22px 44px -22px rgba(14,27,46,.32); }
+
+  /* Controle segmentado com indicador deslizante */
+  .segmentado { position: relative; display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; padding: 3px; border-radius: 999px; background: rgb(var(--superficie-alta)); box-shadow: inset 0 0 0 1px rgb(var(--borda)); }
+  .segmentado > button { position: relative; z-index: 1; padding: .35rem .95rem; font-size: .75rem; font-weight: 600; border-radius: 999px; color: rgb(var(--texto-suave)); transition: color .3s; }
+  .segmentado > button[aria-pressed="true"] { color: rgb(var(--primaria-texto)); }
+  .segmentado > .indicador { position: absolute; z-index: 0; top: 3px; bottom: 3px; border-radius: 999px; background: rgb(var(--primaria)); transition: left .4s cubic-bezier(.2,.7,.2,1), width .4s cubic-bezier(.2,.7,.2,1); box-shadow: 0 4px 10px -4px rgba(14,27,46,.5); }
 
   /* Fita marcadora de página (vinho), presa no topo de um card */
   .fita-marcadora {

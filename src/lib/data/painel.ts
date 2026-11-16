@@ -40,17 +40,27 @@ export async function getPainel(): Promise<PainelData | { precisaOnboarding: tru
   const desde = addDias(hoje, -59);
   const meta: MetaMinima = { minutos: profile.daily_goal_minutes ?? 25, questoes: profile.daily_goal_questions ?? 10 };
 
-  const [goalQ, statsQ, subjQ, masteryQ, planQ, srsQ, xpQ, progressQ, newsQ] = await Promise.all([
+  const [goalQ, statsQ, subjQ, masteryQ, planQ, srsQ, xpQ, progressQ, newsQ, sessQ] = await Promise.all([
     supabase.from("goals").select("exam_date, minutes_per_day, weekdays, area_id, exams_catalog(name, board, id)").eq("user_id", user.id).eq("active", true).maybeSingle(),
     supabase.from("daily_stats").select("day, minutes, questions, correct").eq("user_id", user.id).gte("day", desde).order("day"),
-    supabase.from("daily_subject_stats").select("day, subject_id, questions, correct, subjects(name)").eq("user_id", user.id).gte("day", desde),
+    supabase.from("daily_subject_stats").select("day, subject_id, minutes, questions, correct, subjects(name)").eq("user_id", user.id).gte("day", desde),
     supabase.from("topic_mastery").select("subject_id, mastery, studied").eq("user_id", user.id),
     supabase.from("study_plans").select("plan").eq("user_id", user.id).order("week_start", { ascending: false }).limit(1).maybeSingle(),
     supabase.from("srs_cards").select("id", { count: "exact", head: true }).eq("user_id", user.id).lte("due_at", new Date().toISOString()),
     supabase.from("xp_ledger").select("amount, created_at").eq("user_id", user.id),
     supabase.from("lesson_progress").select("watched_ratio, lessons(title, modules(title, courses(title)))").eq("user_id", user.id).is("completed_at", null).order("updated_at", { ascending: false }).limit(1).maybeSingle(),
     supabase.from("news_posts").select("id, title, summary, tag, published_at, source_url").eq("status", "published").order("published_at", { ascending: false }).limit(3),
+    supabase.from("study_sessions").select("id, started_at, subject_id, minutes, source").eq("user_id", user.id).order("started_at", { ascending: false }).limit(8),
   ]);
+
+  // Minutos por dia e por disciplina (60 dias, hoje por último)
+  const porDia = new Map<string, Record<string, number>>();
+  for (const r of subjQ.data ?? []) {
+    if (!r.minutes) continue;
+    const m = porDia.get(r.day) ?? {};
+    m[r.subject_id] = (m[r.subject_id] ?? 0) + r.minutes;
+    porDia.set(r.day, m);
+  }
 
   const stats = (statsQ.data ?? []).map((d) => ({ data: d.day as string, minutos: d.minutes ?? 0, questoes: d.questions ?? 0, acertos: d.correct ?? 0 }));
   const streak = calcularStreak(stats, hoje, meta);
@@ -130,6 +140,19 @@ export async function getPainel(): Promise<PainelData | { precisaOnboarding: tru
     revisoesPendentes: revisoes,
     proximoSimulado: { titulo: "Simulado semanal", quando: "segunda-feira", questoes: 40 },
     plano,
+    estudo: Array.from({ length: 60 }, (_, i) => addDias(hoje, i - 59)).map((data) => ({
+      data,
+      minutos: statsQ.data?.find((s) => s.day === data)?.minutes ?? 0,
+      porDisciplina: porDia.get(data) ?? {},
+    })),
+    metaDiariaMinutos: goal?.minutes_per_day ?? 60,
+    atividades: (sessQ.data ?? []).map((s) => ({
+      id: s.id,
+      quando: s.started_at,
+      disciplinaId: s.subject_id,
+      tipo: s.source === "aula" ? "aula" : s.source === "questoes" ? "questoes" : "livre",
+      minutos: s.minutes,
+    })),
     insights: (newsQ.data ?? []).map((n) => ({ id: n.id, titulo: n.title, resumo: n.summary, tag: n.tag, data: n.published_at, fonteUrl: n.source_url })),
   };
 }

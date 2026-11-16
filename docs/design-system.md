@@ -55,3 +55,15 @@ Em vez da estética de painel SaaS (menu escuro, cards arredondados com ícone e
 Movimento só com propósito: contadores, preenchimento de anéis e barras, entradas curtas, fita do índice deslizando para o item ativo, filete dourado no hover. Com `prefers-reduced-motion`, tudo é desligado.
 
 **Evitado de propósito**: manchas de luz desfocadas, partículas, vidro fosco, texto em degradê, ícones em quadradinhos coloridos e cantos muito arredondados — marcas de interface genérica.
+
+## 5. Painel de estudo (referência: apps de acompanhamento de estudo)
+
+Elementos funcionais trazidos de apps de rotina de estudo e reinterpretados na identidade Veritas:
+
+- **Começar agora** (dentro da capa): matéria → conteúdo → **Iniciar**. Abre o cronômetro Pomodoro já com matéria e conteúdo (evento `vu:iniciar-sessao`).
+- **Últimos 7 dias**: pílulas de dia (o selecionado em tinta), relógio `H:MM:SS` do dia, colunas em cápsula douradas com linha de meta; o dia escolhido abre em segmentos por disciplina; comparativo com a semana anterior.
+- **Matérias mais estudadas**: controle segmentado Hoje / Semana / Mês com indicador deslizante, faixa de participação, cartões por disciplina (tempo, % do período, média por dia) e ranking com barras.
+- **Linha do tempo**: colunas empilhadas por disciplina, escalas Semana/Mês, navegação ‹ › entre períodos, total do período e legenda com tempo e %; passar o mouse numa disciplina destaca só ela no gráfico.
+- **Atividades recentes**: linha do tempo vertical agrupada em Hoje / Ontem / Há N dias, com tipo, duração e acerto colorido.
+
+Os cards voltaram a ter cantos generosos (20px) e um selo tinta com ícone em ouro no cabeçalho; ao passar o mouse sobem levemente e ganham um filete tinta→ouro→vinho no topo. Números e relógios em Montserrat tabular; Cormorant fica para saudações e títulos institucionais. As agregações estão em `src/lib/services/estudo.ts` (testadas).
