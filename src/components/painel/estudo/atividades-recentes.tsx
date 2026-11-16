@@ -28,15 +28,15 @@ export function AtividadesRecentes({ atividades }: { atividades: Atividade[] }) 
       <div className="space-y-5">
         {[...grupos.entries()].map(([dia, lista]) => (
           <section key={dia}>
-            <p className="mb-2 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-destaque-texto">{dia}</p>
-            <ol className="relative ml-1.5 space-y-1 border-l border-borda pl-5">
+            <p className="sobrelinha mb-2">{dia}</p>
+            <ol className="relative ml-1 space-y-0.5 border-l border-borda pl-5">
               {lista.map((a) => {
                 const pct = a.questoes ? Math.round(((a.acertos ?? 0) / a.questoes) * 100) : null;
                 return (
-                  <li key={a.id} className="group relative rounded-[12px] px-2 py-2 transition hover:bg-superficie-alta">
-                    <span className="absolute -left-[27px] top-3.5 h-3 w-3 rounded-full ring-4 ring-superficie transition group-hover:scale-125" style={{ background: corDe(a.disciplinaId) }} aria-hidden />
+                  <li key={a.id} className="group relative rounded-lg px-2 py-2 transition hover:bg-superficie-alta">
+                    <span className="absolute -left-[26px] top-3.5 h-2.5 w-2.5 rounded-full ring-4 ring-superficie" style={{ background: corDe(a.disciplinaId) }} aria-hidden />
                     <div className="flex items-baseline justify-between gap-3">
-                      <p className="min-w-0 truncate text-sm font-semibold">{nomeDe(a.disciplinaId, false)}</p>
+                      <p className="min-w-0 truncate text-sm font-medium">{nomeDe(a.disciplinaId, false)}</p>
                       <time className="num shrink-0 text-xs text-texto-suave" dateTime={a.quando}>
                         {new Date(a.quando).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" })}
                       </time>

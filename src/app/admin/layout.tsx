@@ -18,7 +18,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       </header>
       <main className="relative mx-auto max-w-5xl px-5 py-8">
         {ctx.aal2 ? children : (
-          <div role="alert" className="flex gap-3 rounded-[4px] bg-revisar-suave p-5 text-revisar">
+          <div role="alert" className="flex gap-3 rounded-lg bg-revisar-suave p-5 text-revisar">
             <ShieldAlert className="h-5 w-5 shrink-0" />
             <div>
               <p className="font-semibold">Verificação em duas etapas obrigatória</p>

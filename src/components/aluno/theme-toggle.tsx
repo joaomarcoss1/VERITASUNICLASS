@@ -13,7 +13,7 @@ export function ThemeToggle({ tom = "escuro" }: { tom?: "claro" | "escuro" }) {
     try { localStorage.setItem("vu-tema", novo ? "escuro" : "claro"); } catch {}
   }
   return (
-    <button onClick={alternar} className={tom === "claro" ? "grid h-9 w-9 shrink-0 place-items-center rounded-[4px] text-texto-suave transition hover:bg-superficie-alta hover:text-texto" : "grid h-9 w-9 shrink-0 place-items-center rounded-[4px] text-veritas-pergaminho/80 hover:bg-white/10"} aria-label={escuro ? "Usar tema claro" : "Usar tema Biblioteca noturna"} title={escuro ? "Tema claro" : "Biblioteca noturna"}>
+    <button onClick={alternar} className={tom === "claro" ? "grid h-9 w-9 shrink-0 place-items-center rounded-lg text-texto-suave transition hover:bg-superficie-alta hover:text-texto" : "grid h-9 w-9 shrink-0 place-items-center rounded-lg text-veritas-pergaminho/80 hover:bg-white/10"} aria-label={escuro ? "Usar tema claro" : "Usar tema Biblioteca noturna"} title={escuro ? "Tema claro" : "Biblioteca noturna"}>
       {escuro ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
     </button>
   );

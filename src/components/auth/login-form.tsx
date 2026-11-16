@@ -14,8 +14,8 @@ export function LoginForm({ next, erroUrl }: { next?: string; erroUrl?: string }
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="titulo-institucional text-4xl">Bem-vindo de volta</h1>
-        <p className="mt-2 text-texto-suave">Sua missão de hoje já está pronta.</p>
+        <h1 className="titulo-institucional text-[1.75rem] leading-tight">Bem-vindo de volta</h1>
+        <p className="mt-1.5 text-sm text-texto-suave">Sua missão de hoje já está pronta.</p>
       </div>
 
       {erroUrl && <Aviso tipo="erro">{erroUrl === "google" ? "Não foi possível entrar com o Google." : "Link inválido ou expirado. Peça um novo."}</Aviso>}
@@ -23,7 +23,7 @@ export function LoginForm({ next, erroUrl }: { next?: string; erroUrl?: string }
       {estado?.ok && <Aviso tipo="ok">{estado.ok}</Aviso>}
 
       <form action={entrarComGoogle}>
-        <Button type="submit" variante="secundaria" className="h-12 w-full"><GoogleIcon /> Entrar com Google</Button>
+        <Button type="submit" variante="secundaria" className="h-10 w-full"><GoogleIcon /> Entrar com Google</Button>
       </form>
 
       <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-texto-suave"><span className="h-px flex-1 bg-borda" />ou<span className="h-px flex-1 bg-borda" /></div>
@@ -34,12 +34,12 @@ export function LoginForm({ next, erroUrl }: { next?: string; erroUrl?: string }
           <Campo rotulo="E-mail" name="email" type="email" autoComplete="email" required />
           <Campo rotulo="Senha" name="senha" type="password" autoComplete="current-password" required />
           <div className="flex justify-end"><Link href="/recuperar-senha" className="text-sm font-medium text-destaque-texto hover:underline">Esqueci a senha</Link></div>
-          <Button type="submit" className="h-12 w-full" disabled={pendenteSenha}>{pendenteSenha ? "Entrando…" : "Entrar"}</Button>
+          <Button type="submit" className="h-10 w-full" disabled={pendenteSenha}>{pendenteSenha ? "Entrando…" : "Entrar"}</Button>
         </form>
       ) : (
         <form action={acaoLink} className="space-y-4">
           <Campo rotulo="E-mail" name="email" type="email" autoComplete="email" required />
-          <Button type="submit" className="h-12 w-full" disabled={pendenteLink}>{pendenteLink ? "Enviando…" : "Enviar link de acesso"}</Button>
+          <Button type="submit" className="h-10 w-full" disabled={pendenteLink}>{pendenteLink ? "Enviando…" : "Enviar link de acesso"}</Button>
         </form>
       )}
 

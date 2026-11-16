@@ -10,8 +10,8 @@ export function CadastroForm() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="titulo-institucional text-4xl">Crie sua conta</h1>
-        <p className="mt-2 text-texto-suave">Em 3 minutos você recebe sua rotina e a primeira missão.</p>
+        <h1 className="titulo-institucional text-[1.75rem] leading-tight">Crie sua conta</h1>
+        <p className="mt-1.5 text-sm text-texto-suave">Em 3 minutos você recebe sua rotina e a primeira missão.</p>
       </div>
       {estado?.erro && <Aviso tipo="erro">{estado.erro}</Aviso>}
       {estado?.ok && <Aviso tipo="ok">{estado.ok}</Aviso>}
@@ -27,7 +27,7 @@ export function CadastroForm() {
             <Link href="/privacidade" className="font-semibold text-info underline">Política de Privacidade</Link>, incluindo o tratamento dos meus dados de estudo (LGPD).
           </span>
         </label>
-        <Button type="submit" className="h-12 w-full" disabled={pendente}>{pendente ? "Criando conta…" : "Criar conta grátis"}</Button>
+        <Button type="submit" className="h-10 w-full" disabled={pendente}>{pendente ? "Criando conta…" : "Criar conta grátis"}</Button>
       </form>
       <p className="text-center text-sm text-texto-suave">Já tem conta? <Link href="/login" className="font-semibold text-destaque-texto hover:underline">Entrar</Link></p>
     </div>

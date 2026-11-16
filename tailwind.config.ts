@@ -26,6 +26,7 @@ const config: Config = {
         texto: v("texto"),
         "texto-suave": v("texto-suave"),
         borda: v("borda"),
+        "borda-forte": v("borda-forte"),
         primaria: v("primaria"),
         "primaria-texto": v("primaria-texto"),
         destaque: v("destaque"),
@@ -41,6 +42,7 @@ const config: Config = {
       },
       fontFamily: {
         titulo: ["var(--font-titulo)"],
+        marca: ["var(--font-marca)"],
         sans: ["var(--font-texto)"],
       },
       fontSize: {

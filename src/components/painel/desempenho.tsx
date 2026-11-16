@@ -2,57 +2,68 @@ import Link from "next/link";
 import { ArrowDownRight, ArrowRight, ArrowUpRight, Crosshair } from "lucide-react";
 import type { PainelData, Tendencia } from "@/lib/data/types";
 import { classificar } from "@/lib/services/habit";
-import { corDominio } from "@/lib/design/tokens";
-import { Card, CardTitulo } from "@/components/ui/card";
-import { Barra, Contador } from "@/components/ui/progress";
+import { Card, CardTitulo, ChipDisciplina } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { corDe } from "./estudo/comum";
 
 export function SetaTendencia({ t, className }: { t: Tendencia; className?: string }) {
   const Icon = t === "subindo" ? ArrowUpRight : t === "caindo" ? ArrowDownRight : ArrowRight;
   const txt = t === "subindo" ? "subindo" : t === "caindo" ? "caindo" : "estável";
   return (
-    <span className={cn("inline-flex items-center", t === "subindo" ? "text-acerto" : t === "caindo" ? "text-erro" : "text-texto-suave", className)}>
-      <Icon className="h-4 w-4" aria-hidden /><span className="sr-only">{txt}</span>
+    <span className={cn("inline-flex items-center gap-0.5 text-xs font-medium", t === "subindo" ? "text-acerto" : t === "caindo" ? "text-erro" : "text-texto-suave", className)}>
+      <Icon className="h-3.5 w-3.5" aria-hidden />{txt}
     </span>
   );
 }
 
+const STATUS = {
+  Fraco: "bg-erro-suave text-erro",
+  "Em evolução": "bg-revisar-suave text-revisar",
+  Dominado: "bg-acerto-suave text-acerto",
+} as const;
+
+/** Domínio por disciplina — tabela ordenada da mais fraca para a mais forte, com ação direta. */
 export function DesempenhoRapido({ desempenho }: { desempenho: PainelData["desempenho"] }) {
-  const fracas = [...desempenho.disciplinas].sort((a, b) => a.dominio - b.dominio).slice(0, 3);
+  const linhas = [...desempenho.disciplinas].sort((a, b) => a.dominio - b.dominio);
   return (
-    <Card>
-      <CardTitulo icone={<Crosshair />} acao={<Link href="/desempenho" className="text-sm font-semibold text-info hover:underline">Ver tudo</Link>}>
-        Desempenho rápido
+    <Card className="overflow-hidden">
+      <CardTitulo icone={<Crosshair />} subtitulo="Da mais fraca para a mais forte · últimos 30 dias" acao={<Link href="/desempenho">Ver relatório</Link>}>
+        Domínio por disciplina
       </CardTitulo>
-      <div className="grid gap-5 sm:grid-cols-[auto_1fr] sm:items-center">
-        <div className="sm:border-r sm:border-borda sm:pr-6">
-          <p className="text-sm text-texto-suave">Acerto geral</p>
-          <p className="num flex items-center gap-2 text-4xl font-semibold">
-            <Contador valor={desempenho.acertoGeral} sufixo="%" />
-            <SetaTendencia t={desempenho.tendencia} className="text-base" />
-          </p>
-          <p className="num text-xs text-texto-suave">{desempenho.deltaPontos >= 0 ? "+" : ""}{desempenho.deltaPontos} p.p. vs. 30 dias anteriores</p>
-        </div>
-        <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-texto-suave">Onde você mais precisa treinar</p>
-          <ul className="space-y-2.5">
-            {fracas.map((d) => {
+      <div className="-mx-5 max-w-[calc(100%+2.5rem)] overflow-x-auto sm:-mx-6 sm:max-w-[calc(100%+3rem)]">
+        <table className="w-full min-w-[560px] text-sm">
+          <thead>
+            <tr className="border-y border-borda bg-superficie-alta text-left text-xs text-texto-suave">
+              <th className="py-2 pl-5 font-medium sm:pl-6">Disciplina</th>
+              <th className="py-2 font-medium">Domínio</th>
+              <th className="py-2 text-right font-medium">Acerto</th>
+              <th className="py-2 pl-4 font-medium">Tendência</th>
+              <th className="py-2 pr-5 text-right font-medium sm:pr-6"><span className="sr-only">Ação</span></th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-borda">
+            {linhas.map((d) => {
               const classe = classificar(d.dominio);
               return (
-                <li key={d.disciplinaId} className="group rounded-[4px] px-1 py-0.5 transition hover:bg-borda/30">
-                  <div className="flex items-center gap-3">
-                    <span className="h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-white/40" style={{ background: corDominio(d.dominio) }} aria-hidden />
-                    <span className="min-w-0 flex-1 truncate text-sm font-medium">{d.nome}</span>
-                    <span className="hidden text-xs text-texto-suave sm:inline">{classe}</span>
-                    <span className="num w-10 text-right text-sm font-semibold">{d.acerto}%</span>
-                    <SetaTendencia t={d.tendencia} />
-                  </div>
-                  <Barra valor={d.dominio / 100} cor={corDominio(d.dominio)} rotulo={`Domínio em ${d.nome}`} className="ml-5 mt-1.5 h-1 w-auto" />
-                </li>
+                <tr key={d.disciplinaId} className="transition-colors hover:bg-superficie-alta/60">
+                  <td className="py-3 pl-5 sm:pl-6"><ChipDisciplina cor={corDe(d.disciplinaId)}>{d.nome}</ChipDisciplina></td>
+                  <td className="py-3">
+                    <div className="flex items-center gap-2.5">
+                      <span className="h-1.5 w-24 overflow-hidden rounded-[2px] bg-superficie-alta">
+                        <span className="block h-full origin-left animate-[cresce-x_.8s_cubic-bezier(.2,.7,.2,1)_both] rounded-r-[2px] bg-primaria" style={{ width: `${d.dominio}%` }} />
+                      </span>
+                      <span className="num w-7 text-xs font-semibold">{d.dominio}</span>
+                      <span className={cn("rounded-md px-1.5 py-0.5 text-[0.6875rem] font-semibold", STATUS[classe as keyof typeof STATUS])}>{classe}</span>
+                    </div>
+                  </td>
+                  <td className="num py-3 text-right font-semibold">{d.acerto}%</td>
+                  <td className="py-3 pl-4"><SetaTendencia t={d.tendencia} /></td>
+                  <td className="py-3 pr-5 text-right sm:pr-6"><Link href="/questoes" className="text-xs font-semibold text-info hover:underline">Treinar</Link></td>
+                </tr>
               );
             })}
-          </ul>
-        </div>
+          </tbody>
+        </table>
       </div>
     </Card>
   );

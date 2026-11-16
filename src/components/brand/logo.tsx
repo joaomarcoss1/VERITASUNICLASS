@@ -19,7 +19,7 @@ export function LogoUniClass({ className, invertido = false }: { className?: str
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <SimboloVeritas className="h-8 w-8" cor={invertido ? "ouro" : "auto"} />
       <span className="flex flex-col leading-none">
-        <span className={cn("titulo-institucional text-[1.35rem] tracking-[0.14em]", invertido ? "text-veritas-pergaminho" : "text-texto")}>VERITAS</span>
+        <span className={cn("font-titulo text-[1.4rem] font-semibold tracking-[0.14em]", invertido ? "text-veritas-pergaminho" : "text-texto")}>VERITAS</span>
         <span className={cn("text-[0.6rem] font-semibold uppercase tracking-[0.42em]", invertido ? "text-veritas-ouro" : "text-destaque-texto")}>UniClass</span>
       </span>
     </span>

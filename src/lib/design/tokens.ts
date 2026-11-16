@@ -42,18 +42,33 @@ export const academic = {
 } as const;
 
 /**
- * Cores por disciplina — tons foscos, distinguíveis entre si e com contraste
- * AA para texto branco (usadas em chips, barras e no mapa de calor).
+ * Cores por disciplina — paleta categórica validada com o skill de dataviz
+ * (faixa de luminosidade, croma, separação para daltonismo e visão normal).
+ * Uso: marcas de gráfico e pontos de identificação. O TEXTO nunca usa a cor
+ * da série (fica em tinta), por isso não há par "texto branco sobre a cor".
+ * Ordem fixa por disciplina — a cor segue a matéria, nunca a posição.
  */
 export const disciplinas: Record<string, string> = {
-  portugues: "#2B4166",
-  "direito-constitucional": "#5E1A28",
-  "direito-administrativo": "#7A5C2B",
-  "raciocinio-logico": "#245E57",
-  informatica: "#45487F",
-  "direito-penal": "#7A3A22",
-  atualidades: "#4F5A2A",
-  "legislacao-especifica": "#5A3D6B",
+  portugues: "#2F6FDB",
+  "direito-constitucional": "#D2504F",
+  "raciocinio-logico": "#14968A",
+  "direito-administrativo": "#E0A23A",
+  informatica: "#7357D6",
+  "direito-penal": "#3A9A4A",
+  atualidades: "#C2558F",
+  "legislacao-especifica": "#5B6B82",
+};
+
+/** Mesmas matérias, passos para o fundo escuro (validados contra #131C2B). */
+export const disciplinasEscuro: Record<string, string> = {
+  portugues: "#4D86EA",
+  "direito-constitucional": "#E0625F",
+  "raciocinio-logico": "#1FA898",
+  "direito-administrativo": "#C08626",
+  informatica: "#8B74E6",
+  "direito-penal": "#3E9C4E",
+  atualidades: "#D46FA4",
+  "legislacao-especifica": "#7C8BA3",
 };
 
 /** Modo escuro "Biblioteca noturna" — tinta como fundo, pergaminho como texto. */
@@ -88,12 +103,10 @@ export const contrastPairs: Array<{ nome: string; texto: string; fundo: string; 
   { nome: "erro no fundo suave", texto: academic.erro, fundo: academic.erroSuave, minimo: 4.5 },
   { nome: "revisar no fundo suave", texto: academic.revisar, fundo: academic.revisarSuave, minimo: 4.5 },
   { nome: "link/info no papel", texto: academic.tinta600, fundo: academic.papel, minimo: 4.5 },
-  ...Object.entries(disciplinas).map(([k, cor]) => ({
-    nome: `chip ${k} (texto branco)`,
-    texto: "#FFFFFF",
-    fundo: cor,
-    minimo: 4.5,
-  })),
+  { nome: "texto no branco", texto: "#101828", fundo: "#FFFFFF", minimo: 4.5 },
+  { nome: "texto suave no branco", texto: "#576376", fundo: "#FFFFFF", minimo: 4.5 },
+  { nome: "texto suave na faixa", texto: "#576376", fundo: "#F6F7F9", minimo: 4.5 },
+  { nome: "link no branco", texto: "#275EC4", fundo: "#FFFFFF", minimo: 4.5 },
   { nome: "[escuro] texto", texto: dark.texto, fundo: dark.superficie, minimo: 4.5 },
   { nome: "[escuro] texto suave", texto: dark.textoSuave, fundo: dark.superficie, minimo: 4.5 },
   { nome: "[escuro] ouro", texto: dark.ouro, fundo: dark.superficie, minimo: 4.5 },

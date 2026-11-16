@@ -3,15 +3,15 @@ import type { InputHTMLAttributes } from "react";
 export function Campo({ rotulo, ...props }: InputHTMLAttributes<HTMLInputElement> & { rotulo: string }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-medium">{rotulo}</span>
-      <input {...props} className="h-12 w-full rounded-[4px] border border-borda bg-superficie-alta/80 px-4 text-base text-texto shadow-inner shadow-black/[.02] transition duration-300 placeholder:text-texto-suave/70 hover:border-destaque/40 focus:border-destaque focus:bg-superficie-alta focus:outline-none focus:ring-4 focus:ring-destaque/15" />
+      <span className="mb-1.5 block text-[0.8125rem] font-medium text-texto">{rotulo}</span>
+      <input {...props} className="h-10 w-full rounded-lg border border-borda bg-superficie px-3.5 text-sm text-texto shadow-[0_1px_2px_rgba(16,24,40,.05)] transition placeholder:text-texto-suave/70 hover:border-borda-forte focus:border-info focus:outline-none focus:ring-4 focus:ring-info/10" />
     </label>
   );
 }
 
 export function Aviso({ tipo, children }: { tipo: "erro" | "ok"; children: React.ReactNode }) {
   return (
-    <p role={tipo === "erro" ? "alert" : "status"} className={tipo === "erro" ? "rounded-[4px] bg-erro-suave px-4 py-3 text-sm font-medium text-erro" : "rounded-[4px] bg-acerto-suave px-4 py-3 text-sm font-medium text-acerto"}>
+    <p role={tipo === "erro" ? "alert" : "status"} className={tipo === "erro" ? "rounded-lg border border-erro/20 bg-erro-suave px-3.5 py-2.5 text-sm font-medium text-erro" : "rounded-lg border border-acerto/20 bg-acerto-suave px-3.5 py-2.5 text-sm font-medium text-acerto"}>
       {children}
     </p>
   );

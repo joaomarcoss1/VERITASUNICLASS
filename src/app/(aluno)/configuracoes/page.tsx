@@ -9,7 +9,7 @@ export const metadata = { title: "Configurações" };
 export default function ConfiguracoesPage() {
   return (
     <div className="space-y-6">
-      <h1 className="titulo-institucional text-3xl sm:text-4xl">Configurações</h1>
+      <h1 className="titulo-institucional text-[1.625rem] leading-tight sm:text-[1.875rem]">Configurações</h1>
       <Card>
         <CardTitulo>Objetivo e rotina</CardTitulo>
         <p className="text-sm text-texto-suave">Mudou de concurso ou de disponibilidade? Refaça o onboarding — seu histórico é mantido.</p>

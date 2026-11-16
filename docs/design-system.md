@@ -39,31 +39,31 @@ Os pares de contraste estão em `contrastPairs` (`src/lib/design/tokens.ts`) e s
 - Solenidade (Cormorant, selo, filetes): login, certificados, conquistas, títulos de página.
 - Logo: tamanho mínimo do símbolo 24px; não distorcer, girar, recolorir ou aplicar sombra.
 
-## 4. Linguagem visual: o livro acadêmico
+## 4. Veritas Academic — sistema de interface (versão atual)
 
-Em vez da estética de painel SaaS (menu escuro, cards arredondados com ícone em quadradinho), a interface usa a linguagem de um **livro encadernado** — o objeto que melhor representa estudo.
+Diagnóstico da versão anterior: metáforas demais (índice de livro, fitas, numerais romanos, molduras), ouro e bege dominando, paleta de disciplinas terrosa (marrons e vinhos muito parecidos) e cartões sem hierarquia. Resultado: aparência de "tema" e não de produto.
 
-- **Fundo**: branco puro, com o **símbolo Veritas colorido** (estrela em ouro, livro em ouro translúcido com as linhas das páginas) grande e centralizado na área de conteúdo, dentro de anéis de selo — papel timbrado da Academia. Os cards são 92% opacos, então o símbolo aparece sutilmente através deles.
-- **Menu = Índice**: numeração romana (I–VIII) para os módulos e letras (A–D) para os "Apêndices" (financeiro, certificados, conquistas, configurações); títulos em Cormorant; linha pontilhada até o ícone, como no sumário de um livro. Na borda esquerda, uma **lombada** azul tinta com nervuras douradas. O item ativo ganha uma **fita marcadora vinho** saindo pela borda.
-- **Ex libris**: o rodapé do índice é o "selo de dono do livro", com o símbolo e o nome do aluno.
-- **Cards = pranchas**: cantos quase retos (6px), **moldura dupla** interna em ouro, cabeçalho com numeral romano + título em serifa + filete (curto em ouro, longo em névoa). Os blocos do painel seguem a ordem I a VII. Ao passar o mouse, um filete de ouro corre no topo.
-- **Missão do dia**: a prancha recebe uma **fita marcadora**; os itens são entradas numeradas (01, 02…) com uma lombada fina na cor da disciplina e o tempo em serifa.
-- **Capa**: a abertura do painel é a capa do livro — azul tinta, moldura dupla dourada com **cantoneiras**, data em versalete, saudação em Cormorant com o nome em itálico dourado e o símbolo em ouro dentro de um selo.
-- **Algarismos**: números de destaque em Cormorant (algarismos de texto, típicos de livro), dados de tabela em Montserrat tabular.
-- **Botões**: cantos de 4px; o primário tem um filete dourado interno, como douração de capa.
+**Princípios**
+1. A marca entra por **cor e assinatura**, não por ornamento: tinta no menu e na faixa de foco, ouro só em acento (item ativo, chamada principal, destaques), Cormorant só em momentos institucionais (login, landing, certificados).
+2. **Estrutura de produto profissional**: menu lateral agrupado por tarefa (Estudar · Praticar · Acompanhar · Conta), barra superior com busca (Ctrl K), ação principal "Iniciar sessão", tema e alertas; cabeçalho de página padronizado (sobretítulo, título, descrição, ações).
+3. **Hierarquia do painel**: 4 indicadores-chave → faixa de foco (retomar aula / começar sessão) → missão do dia → análises (tempo, matérias, linha do tempo) → domínio por disciplina → mercado.
+4. **Dados primeiro**: números em Inter tabular; tabela de domínio ordenada da mais fraca para a mais forte, com estado (Fraco / Em evolução / Dominado) sempre em texto + cor.
 
-Movimento só com propósito: contadores, preenchimento de anéis e barras, entradas curtas, fita do índice deslizando para o item ativo, filete dourado no hover. Com `prefers-reduced-motion`, tudo é desligado.
+**Tokens**: branco; cinzas frios derivados da tinta (`#101828` texto, `#576376` texto suave, `#E4E7EC` borda, `#F6F7F9` faixa); azul de link `#275EC4`; estados verde/âmbar/vermelho com fundos suaves. Raio: 8px (controles), 12px (cards). Sombra única e curta.
 
-**Evitado de propósito**: manchas de luz desfocadas, partículas, vidro fosco, texto em degradê, ícones em quadradinhos coloridos e cantos muito arredondados — marcas de interface genérica.
+**Tipografia**: Inter (variável) para toda a interface; Cormorant Garamond para a assinatura VERITAS e títulos institucionais; Montserrat reservada à marca.
 
-## 5. Painel de estudo (referência: apps de acompanhamento de estudo)
+**Paleta das disciplinas** — validada com o validador do skill de visualização de dados (faixa de luminosidade, croma, separação para daltonismo ≥ 8 ΔE e visão normal ≥ 15 ΔE, contraste), com passos próprios para o modo escuro. Exposta como variáveis CSS `--disc-<id>` que trocam sozinhas com o tema. Texto nunca usa a cor da série: chips têm fundo tingido, ponto colorido e texto em tinta.
 
-Elementos funcionais trazidos de apps de rotina de estudo e reinterpretados na identidade Veritas:
+| Disciplina | Claro | Escuro |
+|---|---|---|
+| Português | `#2F6FDB` | `#4D86EA` |
+| Dir. Constitucional | `#D2504F` | `#E0625F` |
+| Raciocínio Lógico | `#14968A` | `#1FA898` |
+| Dir. Administrativo | `#E0A23A` | `#C08626` |
+| Informática | `#7357D6` | `#8B74E6` |
+| Dir. Penal | `#3A9A4A` | `#3E9C4E` |
 
-- **Começar agora** (dentro da capa): matéria → conteúdo → **Iniciar**. Abre o cronômetro Pomodoro já com matéria e conteúdo (evento `vu:iniciar-sessao`).
-- **Últimos 7 dias**: pílulas de dia (o selecionado em tinta), relógio `H:MM:SS` do dia, colunas em cápsula douradas com linha de meta; o dia escolhido abre em segmentos por disciplina; comparativo com a semana anterior.
-- **Matérias mais estudadas**: controle segmentado Hoje / Semana / Mês com indicador deslizante, faixa de participação, cartões por disciplina (tempo, % do período, média por dia) e ranking com barras.
-- **Linha do tempo**: colunas empilhadas por disciplina, escalas Semana/Mês, navegação ‹ › entre períodos, total do período e legenda com tempo e %; passar o mouse numa disciplina destaca só ela no gráfico.
-- **Atividades recentes**: linha do tempo vertical agrupada em Hoje / Ontem / Há N dias, com tipo, duração e acerto colorido.
+**Gráficos** (especificações do skill de dataviz): magnitude em um só tom (cinza; o dia selecionado em tinta), identidade por disciplina só onde há divisão por matéria; colunas com cantos de 4px apenas na ponta, 2px de respiro entre segmentos empilhados, grade e eixos discretos, tooltip ao passar o mouse, legenda sempre presente e destaque da série ao passar o mouse na legenda.
 
-Os cards voltaram a ter cantos generosos (20px) e um selo tinta com ícone em ouro no cabeçalho; ao passar o mouse sobem levemente e ganham um filete tinta→ouro→vinho no topo. Números e relógios em Montserrat tabular; Cormorant fica para saudações e títulos institucionais. As agregações estão em `src/lib/services/estudo.ts` (testadas).
+**Movimento**: entradas curtas e escalonadas, contadores, preenchimento de barras e colunas, controle segmentado deslizante. Desligado com `prefers-reduced-motion`.

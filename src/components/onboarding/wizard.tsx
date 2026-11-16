@@ -6,7 +6,6 @@ import { pesosPorArea } from "@/lib/catalog";
 import { concluirOnboarding } from "@/app/actions/onboarding";
 import { gerarPlanoSemanal } from "@/lib/services/study-plan";
 import { montarMissao } from "@/lib/services/habit";
-import { disciplinas as coresDisc } from "@/lib/design/tokens";
 import { LogoUniClass } from "@/components/brand/logo";
 import { FundoVeritas } from "@/components/brand/fundo";
 import { Button } from "@/components/ui/button";
@@ -73,7 +72,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
   return (
     <div className="relative min-h-dvh">
       <FundoVeritas />
-      <header className="vidro-tinta sticky top-0 z-20 border-b border-veritas-ouro/20 px-5 py-4"><div className="mx-auto max-w-3xl"><LogoUniClass invertido /></div></header>
+      <header className="sticky top-0 z-20 border-b border-borda bg-superficie/90 px-5 py-4 backdrop-blur"><div className="mx-auto max-w-3xl"><LogoUniClass /></div></header>
       <div className="relative mx-auto max-w-3xl px-5 py-8">
         {/* Indicador de passos */}
         <ol className="mb-8 grid grid-cols-4 gap-2" aria-label="Etapas">
@@ -91,13 +90,13 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
           {passo === 0 && (
             <section className="escalonado space-y-5">
               <div>
-                <h1 className="titulo-institucional text-3xl sm:text-4xl">Qual é o seu objetivo?</h1>
+                <h1 className="titulo-institucional text-[1.625rem] leading-tight sm:text-[1.875rem]">Qual é o seu objetivo?</h1>
                 <p className="mt-2 text-texto-suave">Tudo na plataforma vai se organizar em volta dele. Dá para trocar depois.</p>
               </div>
               <div className="grid gap-3">
                 {editais.map((e) => (
                   <button key={e.id} onClick={() => { setEditalId(e.id); setNaoSei(false); }} aria-pressed={editalId === e.id}
-                    className={cn("reflexo cartao-premium rounded-[4px] border p-4 text-left", editalId === e.id ? "border-destaque ring-2 ring-destaque/30" : "border-borda hover:border-destaque/60")}>
+                    className={cn("reflexo cartao-premium rounded-lg border p-4 text-left", editalId === e.id ? "border-destaque ring-2 ring-destaque/30" : "border-borda hover:border-destaque/60")}>
                     <div className="flex items-start justify-between gap-3">
                       <span className="font-semibold">{e.nome}</span>
                       <span className="shrink-0 rounded-full bg-veritas-tinta px-2.5 py-0.5 text-xs font-semibold text-veritas-pergaminho">{e.banca}</span>
@@ -106,7 +105,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
                   </button>
                 ))}
                 <button onClick={() => { setNaoSei(true); setEditalId(null); }} aria-pressed={naoSei}
-                  className={cn("cartao-premium rounded-[4px] border border-dashed p-4 text-left", naoSei ? "border-destaque ring-2 ring-destaque/30" : "border-borda")}>
+                  className={cn("cartao-premium rounded-lg border border-dashed p-4 text-left", naoSei ? "border-destaque ring-2 ring-destaque/30" : "border-borda")}>
                   <span className="font-semibold">Ainda não sei o concurso</span>
                   <p className="mt-1 text-sm text-texto-suave">Escolha uma área e começamos pela base comum.</p>
                 </button>
@@ -115,7 +114,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {areas.map((a) => (
                     <button key={a.id} onClick={() => setAreaId(a.id)} aria-pressed={areaId === a.id}
-                      className={cn("rounded-[4px] border p-3 text-left text-sm", areaId === a.id ? "border-destaque bg-revisar-suave" : "border-borda bg-superficie")}>
+                      className={cn("rounded-lg border p-3 text-left text-sm", areaId === a.id ? "border-destaque bg-revisar-suave" : "border-borda bg-superficie")}>
                       <span className="block font-semibold">{a.nome}</span>
                       <span className="text-xs text-texto-suave">{a.descricao}</span>
                     </button>
@@ -124,7 +123,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
               )}
               <label className="block max-w-xs">
                 <span className="mb-1.5 block text-sm font-medium">Data prevista da prova <span className="text-texto-suave">(opcional)</span></span>
-                <input type="date" value={dataProva} onChange={(e) => setDataProva(e.target.value)} className="h-12 w-full rounded-[4px] border border-borda bg-superficie-alta px-4" />
+                <input type="date" value={dataProva} onChange={(e) => setDataProva(e.target.value)} className="h-12 w-full rounded-lg border border-borda bg-superficie-alta px-4" />
               </label>
             </section>
           )}
@@ -132,7 +131,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
           {passo === 1 && (
             <section className="escalonado space-y-6">
               <div>
-                <h1 className="titulo-institucional text-3xl sm:text-4xl">Quando você pode estudar?</h1>
+                <h1 className="titulo-institucional text-[1.625rem] leading-tight sm:text-[1.875rem]">Quando você pode estudar?</h1>
                 <p className="mt-2 text-texto-suave">Seja realista: uma rotina possível vence uma rotina perfeita.</p>
               </div>
               <fieldset>
@@ -140,7 +139,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
                 <div className="grid grid-cols-7 gap-1.5">
                   {DIAS.map((d, i) => (
                     <button key={d} aria-pressed={dias.includes(i)} onClick={() => setDias((x) => (x.includes(i) ? x.filter((y) => y !== i) : [...x, i].sort()))}
-                      className={cn("h-12 rounded-[4px] border text-sm font-semibold", dias.includes(i) ? "border-primaria bg-primaria text-primaria-texto" : "border-borda bg-superficie")}>
+                      className={cn("h-12 rounded-lg border text-sm font-semibold", dias.includes(i) ? "border-primaria bg-primaria text-primaria-texto" : "border-borda bg-superficie")}>
                       {d}
                     </button>
                   ))}
@@ -151,7 +150,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
                 <input type="range" min={25} max={360} step={5} value={minutos} onChange={(e) => setMinutos(Number(e.target.value))} className="w-full accent-[#B8935A]" />
                 <span className="mt-1 flex justify-between text-xs text-texto-suave"><span>25 min</span><span>6h</span></span>
               </label>
-              <p className="num rounded-[4px] bg-superficie p-4 text-sm">
+              <p className="num rounded-lg bg-superficie p-4 text-sm">
                 Total: <strong>{formatMinutos(minutos * dias.length)}</strong> por semana · cerca de <strong>{Math.round((minutos * dias.length * 4.3) / 60)}h</strong> por mês.
               </p>
             </section>
@@ -160,19 +159,19 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
           {passo === 2 && (
             <section className="escalonado space-y-5">
               <div>
-                <h1 className="titulo-institucional text-3xl sm:text-4xl">Diagnóstico rápido</h1>
+                <h1 className="titulo-institucional text-[1.625rem] leading-tight sm:text-[1.875rem]">Diagnóstico rápido</h1>
                 <p className="mt-2 text-texto-suave">
                   Como você se sente em cada disciplina? Isso calibra a primeira semana. O mini-simulado de 20 questões ficará disponível em <em>Simulados</em> e ajusta tudo automaticamente.
                 </p>
               </div>
               <ul className="space-y-3">
                 {discsDoObjetivo.map((d) => (
-                  <li key={d.id} className="rounded-[4px] border border-borda bg-superficie p-4">
-                    <p className="mb-2 flex items-center gap-2 font-semibold"><span className="h-2.5 w-2.5 rounded-full" style={{ background: coresDisc[d.id] }} aria-hidden />{d.nome}</p>
+                  <li key={d.id} className="rounded-lg border border-borda bg-superficie p-4">
+                    <p className="mb-2 flex items-center gap-2 font-semibold"><span className="h-2.5 w-2.5 rounded-full" style={{ background: `var(--disc-${d.id})` }} aria-hidden />{d.nome}</p>
                     <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4" role="radiogroup" aria-label={`Nível em ${d.nome}`}>
                       {NIVEIS.map((n) => (
                         <button key={n.v} role="radio" aria-checked={niveis[d.id] === n.v} onClick={() => setNiveis((x) => ({ ...x, [d.id]: n.v }))}
-                          className={cn("h-10 rounded-[4px] border text-sm", niveis[d.id] === n.v ? "border-primaria bg-primaria font-semibold text-primaria-texto" : "border-borda")}>
+                          className={cn("h-10 rounded-lg border text-sm", niveis[d.id] === n.v ? "border-primaria bg-primaria font-semibold text-primaria-texto" : "border-borda")}>
                           {n.t}
                         </button>
                       ))}
@@ -186,10 +185,10 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
           {passo === 3 && (
             <section className="escalonado space-y-6">
               <div>
-                <h1 className="titulo-institucional text-3xl sm:text-4xl">Sua rotina está pronta</h1>
+                <h1 className="titulo-institucional text-[1.625rem] leading-tight sm:text-[1.875rem]">Sua rotina está pronta</h1>
                 <p className="mt-2 text-texto-suave">Mais tempo para o que pesa mais no edital e para onde você está mais fraco. Ela se reajusta sozinha conforme você estuda.</p>
               </div>
-              <div className="rounded-[6px] border border-destaque/50 bg-superficie p-5 shadow-selo">
+              <div className="rounded-xl border border-destaque/50 bg-superficie p-5 shadow-selo">
                 <p className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-destaque-texto"><Target className="h-4 w-4" /> Primeira missão do dia</p>
                 <ul className="space-y-2">
                   {missao.map((m) => <li key={m.id} className="flex justify-between gap-3 text-sm"><span className="font-medium">{m.titulo}</span><span className="num text-texto-suave">{formatMinutos(m.minutos)}</span></li>)}
@@ -198,13 +197,13 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
               <div className="overflow-x-auto">
                 <div className="grid min-w-[560px] gap-2" style={{ gridTemplateColumns: `repeat(${plano.length}, minmax(0,1fr))` }}>
                   {plano.map((dia) => (
-                    <div key={dia.diaSemana} className="cartao-premium rounded-[4px] border border-borda p-2.5">
+                    <div key={dia.diaSemana} className="cartao-premium rounded-lg border border-borda p-2.5">
                       <p className="mb-2 text-center text-xs font-semibold">{DIAS[dia.diaSemana]}</p>
                       <div className="space-y-1.5">
                         {dia.sessoes.map((s, i) => (
-                          <div key={i} className="animate-sobe-fade rounded-md px-2 py-1.5 text-[0.7rem] leading-tight text-white shadow-sm transition hover:scale-[1.03]" style={{ background: coresDisc[s.disciplinaId] ?? "#2B4166" }}>
+                          <div key={i} className="animate-sobe-fade rounded-md border-l-[3px] px-2 py-1.5 text-[0.7rem] leading-tight text-texto" style={{ borderColor: `var(--disc-${s.disciplinaId})`, background: `color-mix(in srgb, var(--disc-${s.disciplinaId}) 10%, transparent)` }}>
                             <span className="block truncate font-semibold">{s.disciplina}</span>
-                            <span className="opacity-90">{s.tipo === "aula" ? "Teoria" : s.tipo === "questoes" ? "Questões" : "Revisão"} · {s.minutos}′</span>
+                            <span className="text-texto-suave">{s.tipo === "aula" ? "Teoria" : s.tipo === "questoes" ? "Questões" : "Revisão"} · {s.minutos}′</span>
                           </div>
                         ))}
                       </div>
@@ -216,7 +215,7 @@ export function OnboardingWizard({ areas, editais, disciplinas }: { areas: Area[
           )}
         </div>
 
-        {erro && <p role="alert" className="mt-6 rounded-[4px] bg-erro-suave px-4 py-3 text-sm font-medium text-erro">{erro}</p>}
+        {erro && <p role="alert" className="mt-6 rounded-lg bg-erro-suave px-4 py-3 text-sm font-medium text-erro">{erro}</p>}
 
         <div className="mt-8 flex items-center justify-between gap-3">
           <Button variante="fantasma" onClick={() => setPasso((p) => Math.max(0, p - 1))} disabled={passo === 0}><ArrowLeft className="h-4 w-4" /> Voltar</Button>

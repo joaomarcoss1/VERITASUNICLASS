@@ -1,7 +1,8 @@
 import { nomeDisciplina } from "@/lib/catalog";
 import { disciplinas as cores } from "@/lib/design/tokens";
 
-export const corDe = (id: string | null | undefined) => (id && cores[id]) || "#2B4166";
+/** Cor da disciplina como variável CSS (troca sozinha no modo escuro). */
+export const corDe = (id: string | null | undefined) => (id && cores[id] ? `var(--disc-${id})` : "var(--disc-legislacao-especifica)");
 export const nomeDe = (id: string | null | undefined, curto = true) => (id ? nomeDisciplina(id, curto) : "Geral");
 
 const SEMANA = ["dom.", "seg.", "ter.", "qua.", "qui.", "sex.", "sáb."];

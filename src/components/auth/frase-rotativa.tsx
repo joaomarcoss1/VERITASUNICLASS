@@ -15,8 +15,6 @@ export function FraseRotativa() {
     return () => clearInterval(t);
   }, []);
   return (
-    <p key={i} className="mt-8 max-w-sm animate-sobe-fade text-center font-titulo text-2xl italic leading-snug text-veritas-pergaminho/90" aria-live="polite">
-      “{FRASES[i]}”
-    </p>
+    <p key={i} className="animate-sobe-fade font-titulo text-xl italic leading-snug text-slate-200" aria-live="polite">“{FRASES[i]}”</p>
   );
 }

@@ -84,7 +84,6 @@ export function FundoVeritas({ variante = "estudo", className, fixo = true, grav
     <div className={cn("pointer-events-none inset-0 -z-10 overflow-hidden", fixo ? "fixed" : "absolute", inst ? "bg-[linear-gradient(180deg,#10203A,#0E1B2E_55%,#0B1626)]" : "bg-fundo", className)} aria-hidden>
       {gravura && !inst && (
         <div className="absolute left-1/2 top-1/2 h-[min(78vmin,760px)] w-[min(78vmin,760px)] -translate-x-1/2 -translate-y-[46%] lg:left-[calc(50%+140px)] dark:opacity-60">
-          <AneisSelo className="absolute inset-0 h-full w-full text-veritas-ouro/40" />
           <SimboloColorido className="absolute inset-[17%] h-[66%] w-[66%]" />
         </div>
       )}

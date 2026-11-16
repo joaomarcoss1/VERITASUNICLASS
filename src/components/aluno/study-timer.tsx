@@ -93,10 +93,10 @@ export function StudyTimer() {
   return (
     <>
       {aberto && (
-        <div className="cartao-premium fixed bottom-40 right-4 z-40 w-[min(22rem,calc(100vw-2rem))] animate-sobe-fade rounded-[6px] border border-destaque/30 p-5 shadow-[0_24px_60px_-20px_rgba(14,27,46,.5)] lg:bottom-24" role="dialog" aria-label="Sessão de estudo">
+        <div className="fixed bottom-40 right-4 z-40 w-[min(22rem,calc(100vw-2rem))] animate-sobe-fade rounded-xl border border-borda bg-superficie p-5 lg:bottom-24 lg:right-6 shadow-[0_24px_60px_-20px_rgba(14,27,46,.5)] lg:bottom-24" role="dialog" aria-label="Sessão de estudo">
           <div className="mb-3 flex items-center justify-between">
             <p className="font-semibold">Sessão de estudo</p>
-            <button onClick={() => setAberto(false)} className="grid h-8 w-8 place-items-center rounded-[4px] hover:bg-borda/40" aria-label="Minimizar"><X className="h-4 w-4" /></button>
+            <button onClick={() => setAberto(false)} className="grid h-8 w-8 place-items-center rounded-lg hover:bg-borda/40" aria-label="Minimizar"><X className="h-4 w-4" /></button>
           </div>
           {estado ? (
             <div className="text-center">
@@ -107,10 +107,10 @@ export function StudyTimer() {
               <p className="num my-2 text-5xl font-semibold tracking-tight">{mmss(estado.modo === "pomodoro" ? restante : decorrido)}</p>
               <p className="num text-sm text-texto-suave">Tempo líquido: {mmss(liquidoMs)}</p>
               <div className="mt-4 flex justify-center gap-2">
-                <button onClick={pausarOuRetomar} className="inline-flex h-11 items-center gap-2 rounded-[4px] border border-borda px-4 text-sm font-semibold">
+                <button onClick={pausarOuRetomar} className="inline-flex h-11 items-center gap-2 rounded-lg border border-borda px-4 text-sm font-semibold">
                   {estado.retomadoEm ? <><Pause className="h-4 w-4" /> Pausar</> : <><Play className="h-4 w-4" /> Retomar</>}
                 </button>
-                <button onClick={encerrar} className="inline-flex h-11 items-center gap-2 rounded-[4px] bg-primaria px-4 text-sm font-semibold text-primaria-texto">
+                <button onClick={encerrar} className="inline-flex h-11 items-center gap-2 rounded-lg bg-primaria px-4 text-sm font-semibold text-primaria-texto">
                   <Square className="h-4 w-4" /> Encerrar
                 </button>
               </div>
@@ -119,19 +119,19 @@ export function StudyTimer() {
             <div className="space-y-3">
               <label className="block text-sm">
                 <span className="mb-1 block text-texto-suave">Disciplina</span>
-                <select value={disciplina} onChange={(e) => setDisciplina(e.target.value)} className="h-11 w-full rounded-[4px] border border-borda bg-superficie-alta px-3">
+                <select value={disciplina} onChange={(e) => setDisciplina(e.target.value)} className="h-11 w-full rounded-lg border border-borda bg-superficie-alta px-3">
                   <option value="">Geral / várias</option>
                   {DISCIPLINAS.map((d) => <option key={d.id} value={d.id}>{d.nome}</option>)}
                 </select>
               </label>
               <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Modo">
                 {(["pomodoro", "livre"] as const).map((m) => (
-                  <button key={m} role="radio" aria-checked={modo === m} onClick={() => setModo(m)} className={cn("h-11 rounded-[4px] border text-sm font-semibold", modo === m ? "border-destaque bg-revisar-suave text-revisar" : "border-borda")}>
+                  <button key={m} role="radio" aria-checked={modo === m} onClick={() => setModo(m)} className={cn("h-11 rounded-lg border text-sm font-semibold", modo === m ? "border-destaque bg-revisar-suave text-revisar" : "border-borda")}>
                     {m === "pomodoro" ? "Pomodoro 25/5" : "Livre"}
                   </button>
                 ))}
               </div>
-              <button onClick={iniciar} className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-[4px] bg-primaria text-sm font-semibold text-primaria-texto"><Play className="h-4 w-4" /> Começar</button>
+              <button onClick={iniciar} className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-primaria text-sm font-semibold text-primaria-texto"><Play className="h-4 w-4" /> Começar</button>
             </div>
           )}
           {msg && <p className="mt-3 text-center text-sm text-texto-suave" role="status">{salvando ? "Salvando…" : msg}</p>}
@@ -141,11 +141,11 @@ export function StudyTimer() {
         onClick={() => setAberto((v) => !v)}
         className={cn(
           "group fixed bottom-24 right-4 z-40 inline-flex h-12 items-center gap-2 rounded-full px-5 text-sm font-semibold shadow-[0_6px_18px_-6px_rgba(14,27,46,.45)] transition duration-300 ease-premium hover:-translate-y-0.5 active:scale-95 lg:bottom-6 lg:right-6",
-          estado ? "bg-veritas-tinta text-veritas-ouro ring-1 ring-veritas-ouro" : "bg-veritas-ouro text-veritas-tinta",
+          estado ? "bg-veritas-tinta text-veritas-ouro ring-1 ring-veritas-ouro/60" : "bg-veritas-tinta text-white lg:hidden",
         )}
         aria-expanded={aberto}
       >
-        <span className={cn("pointer-events-none absolute inset-0 -z-10 animate-halo rounded-full", estado ? "bg-veritas-ouro/40" : "bg-veritas-ouro/50")} aria-hidden />
+        {estado && <span className="pointer-events-none absolute inset-0 -z-10 animate-halo rounded-full bg-veritas-ouro/40" aria-hidden />}
         {estado ? <><Timer className="h-4 w-4" /><span className="num">{mmss(liquidoMs)}</span></> : <><Play className="h-4 w-4 fill-current" /><span className="sm:hidden">Estudar</span><span className="hidden sm:inline">Iniciar sessão de estudo</span></>}
       </button>
     </>

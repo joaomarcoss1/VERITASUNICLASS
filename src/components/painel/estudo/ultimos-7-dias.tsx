@@ -28,9 +28,9 @@ export function UltimosSeteDias({ estudo, meta }: { estudo: DiaEstudo[]; meta: n
           const on = i === sel;
           return (
             <button key={d.data} role="tab" aria-selected={on} onClick={() => setSel(i)}
-              className={cn("flex flex-col items-center rounded-full py-2 text-[0.68rem] transition-all duration-300 ease-premium", on ? "bg-veritas-tinta text-veritas-pergaminho shadow-[0_8px_18px_-8px_rgba(14,27,46,.8)] dark:bg-veritas-ouro dark:text-veritas-tinta" : "text-texto-suave hover:bg-superficie-alta")}>
-              <span className={cn("font-medium", on && "text-veritas-ouro dark:text-veritas-tinta")}>{hoje ? "Hoje" : diaSemana(d.data)}</span>
-              <span className="num text-base font-semibold leading-tight">{diaMes(d.data)}</span>
+              className={cn("flex flex-col items-center rounded-lg py-1.5 text-[0.6875rem] transition-colors duration-200", on ? "bg-primaria text-primaria-texto" : "text-texto-suave hover:bg-superficie-alta")}>
+              <span className={cn("font-medium", on ? "opacity-80" : "")}>{hoje ? "Hoje" : diaSemana(d.data)}</span>
+              <span className="num text-[0.9375rem] font-semibold leading-tight">{diaMes(d.data)}</span>
             </button>
           );
         })}
@@ -39,18 +39,20 @@ export function UltimosSeteDias({ estudo, meta }: { estudo: DiaEstudo[]; meta: n
       {/* Relógio do dia */}
       <div className="mt-5 flex items-end justify-between gap-3">
         <div key={sel} className="animate-sobe-fade">
-          <p className="num text-[2.4rem] font-semibold leading-none tracking-tight">{relogio(atual.minutos)}</p>
-          <p className="mt-1 text-xs text-texto-suave">líquidas estudadas</p>
+          <p className="num text-[2rem] font-semibold leading-none tracking-[-0.02em]">{relogio(atual.minutos)}</p>
+          <p className="mt-1.5 text-xs text-texto-suave">horas líquidas no dia</p>
         </div>
-        <span className={cn("rounded-full px-2.5 py-1 text-xs font-semibold", pctMeta >= 100 ? "bg-acerto-suave text-acerto" : "bg-revisar-suave text-revisar")}>
+        <span className={cn("rounded-md px-2 py-0.5 text-xs font-semibold", pctMeta >= 100 ? "bg-acerto-suave text-acerto" : "bg-revisar-suave text-revisar")}>
           {pctMeta}% da meta
         </span>
       </div>
 
       {/* Colunas */}
       <div className="relative mt-5 h-44">
-        <div className="absolute inset-x-0 border-t border-dashed border-destaque/60" style={{ bottom: `${(meta / max) * 100}%` }} aria-hidden>
-          <span className="absolute -top-2.5 right-0 bg-superficie px-1 text-[0.6rem] font-semibold uppercase tracking-wider text-destaque-texto">meta {formatDuracao(meta)}</span>
+        <div className="absolute inset-x-0 bottom-0 border-t border-borda" aria-hidden />
+        <div className="absolute inset-x-0 border-t border-borda/70" style={{ bottom: "50%" }} aria-hidden />
+        <div className="absolute inset-x-0 border-t border-dashed border-texto-suave/60" style={{ bottom: `${(meta / max) * 100}%` }} aria-hidden>
+          <span className="absolute -top-2.5 right-0 bg-superficie pl-1.5 text-[0.625rem] font-medium text-texto-suave">Meta {formatDuracao(meta)}</span>
         </div>
         <div className="grid h-full grid-cols-7 items-end gap-2">
           {dias.map((d, i) => {
@@ -59,15 +61,15 @@ export function UltimosSeteDias({ estudo, meta }: { estudo: DiaEstudo[]; meta: n
             return (
               <button key={d.data} onClick={() => setSel(i)} aria-label={`${diaSemana(d.data)} ${diaMes(d.data)}: ${formatDuracao(d.minutos)}`}
                 className="group relative flex h-full items-end justify-center">
-                <span className="pointer-events-none absolute z-10 -translate-y-2 rounded-md bg-veritas-tinta px-1.5 py-0.5 text-[0.62rem] font-semibold text-veritas-pergaminho opacity-0 transition group-hover:-translate-y-3 group-hover:opacity-100" style={{ bottom: `${h}%` }}>
+                <span className="pointer-events-none absolute z-10 -translate-y-2 whitespace-nowrap rounded-md bg-slate-900 px-2 py-1 text-[0.6875rem] font-medium text-white opacity-0 shadow-lg transition group-hover:-translate-y-3 group-hover:opacity-100" style={{ bottom: `${h}%` }}>
                   {formatDuracao(d.minutos)}
                 </span>
                 <span
-                  className={cn("flex w-full max-w-[34px] origin-bottom animate-cresce flex-col-reverse overflow-hidden rounded-full transition-all duration-500 ease-premium", on ? "shadow-[0_10px_20px_-10px_rgba(14,27,46,.8)]" : "opacity-80 group-hover:opacity-100")}
-                  style={{ height: `${h}%`, animationDelay: `${i * 70}ms`, background: on ? undefined : "linear-gradient(180deg, #CDAA6E, #A9844C)" }}
+                  className={cn("flex w-full max-w-[32px] origin-bottom animate-cresce flex-col-reverse gap-[2px] overflow-hidden rounded-t-[4px] transition-colors duration-200", on ? "" : "bg-borda-forte group-hover:bg-texto-suave/50")}
+                  style={{ height: `${h}%`, animationDelay: `${i * 60}ms` }}
                 >
                   {on && segmentos.map(([id, m]) => (
-                    <span key={id} title={`${nomeDe(id)}: ${formatDuracao(m)}`} className="w-full transition-all duration-500" style={{ height: `${(m / Math.max(1, d.minutos)) * 100}%`, background: corDe(id) }} />
+                    <span key={id} title={`${nomeDe(id)}: ${formatDuracao(m)}`} className="w-full shrink-0" style={{ height: `calc(${(m / Math.max(1, d.minutos)) * 100}% - 2px)`, background: corDe(id) }} />
                   ))}
                 </span>
               </button>
@@ -79,7 +81,7 @@ export function UltimosSeteDias({ estudo, meta }: { estudo: DiaEstudo[]; meta: n
       {/* Legenda do dia + comparativo */}
       <div key={`l${sel}`} className="mt-4 flex flex-wrap gap-x-3 gap-y-1.5 text-[0.7rem] text-texto-suave">
         {segmentos.slice(0, 4).map(([id, m]) => (
-          <span key={id} className="inline-flex animate-sobe-fade items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: corDe(id) }} />{nomeDe(id)} {formatDuracao(m)}</span>
+          <span key={id} className="inline-flex animate-sobe-fade items-center gap-1.5"><span className="h-2 w-2 rounded-sm" style={{ background: corDe(id) }} />{nomeDe(id)} <span className="num font-medium text-texto">{formatDuracao(m)}</span></span>
         ))}
       </div>
       <p className="mt-3 border-t border-borda pt-3 text-xs text-texto-suave">
