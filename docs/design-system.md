@@ -39,20 +39,19 @@ Os pares de contraste estão em `contrastPairs` (`src/lib/design/tokens.ts`) e s
 - Solenidade (Cormorant, selo, filetes): login, certificados, conquistas, títulos de página.
 - Logo: tamanho mínimo do símbolo 24px; não distorcer, girar, recolorir ou aplicar sombra.
 
-## 4. Fundo, acabamento e interações
+## 4. Linguagem visual: o livro acadêmico
 
-**Fundo branco editorial.** O tema claro usa branco puro (`#FFFFFF`) no fundo e nos cards; o Pergaminho fica reservado a certificados, campos de formulário e linhas de lista (`#FAF8F4`, pergaminho bem diluído). Bordas em névoa clareada (`#E6E1D6`).
+Em vez da estética de painel SaaS (menu escuro, cards arredondados com ícone em quadradinho), a interface usa a linguagem de um **livro encadernado** — o objeto que melhor representa estudo.
 
-**A marca como gravura, não como efeito.** O símbolo oficial aparece em traço fino (estrela + livro com as linhas das páginas), dentro de anéis de selo com régua de marcações, no canto superior direito — como papel timbrado. Onde o selo já aparece (faixa do painel, login, landing), a gravura é omitida para não repetir a marca.
+- **Fundo**: branco puro, com o **símbolo Veritas colorido** (estrela em ouro, livro em ouro translúcido com as linhas das páginas) grande e centralizado na área de conteúdo, dentro de anéis de selo — papel timbrado da Academia. Os cards são 92% opacos, então o símbolo aparece sutilmente através deles.
+- **Menu = Índice**: numeração romana (I–VIII) para os módulos e letras (A–D) para os "Apêndices" (financeiro, certificados, conquistas, configurações); títulos em Cormorant; linha pontilhada até o ícone, como no sumário de um livro. Na borda esquerda, uma **lombada** azul tinta com nervuras douradas. O item ativo ganha uma **fita marcadora vinho** saindo pela borda.
+- **Ex libris**: o rodapé do índice é o "selo de dono do livro", com o símbolo e o nome do aluno.
+- **Cards = pranchas**: cantos quase retos (6px), **moldura dupla** interna em ouro, cabeçalho com numeral romano + título em serifa + filete (curto em ouro, longo em névoa). Os blocos do painel seguem a ordem I a VII. Ao passar o mouse, um filete de ouro corre no topo.
+- **Missão do dia**: a prancha recebe uma **fita marcadora**; os itens são entradas numeradas (01, 02…) com uma lombada fina na cor da disciplina e o tempo em serifa.
+- **Capa**: a abertura do painel é a capa do livro — azul tinta, moldura dupla dourada com **cantoneiras**, data em versalete, saudação em Cormorant com o nome em itálico dourado e o símbolo em ouro dentro de um selo.
+- **Algarismos**: números de destaque em Cormorant (algarismos de texto, típicos de livro), dados de tabela em Montserrat tabular.
+- **Botões**: cantos de 4px; o primário tem um filete dourado interno, como douração de capa.
 
-**O que foi evitado de propósito** (são sinais de visual genérico ou "feito por IA"): manchas de luz desfocadas, partículas/estrelas espalhadas piscando, vidro fosco, texto em degradê animado, elementos flutuando sem motivo e sombras coloridas. Tudo é cor sólida, filete fino e sombra curta.
+Movimento só com propósito: contadores, preenchimento de anéis e barras, entradas curtas, fita do índice deslizando para o item ativo, filete dourado no hover. Com `prefers-reduced-motion`, tudo é desligado.
 
-**Movimento só com propósito:**
-- cards: ao passar o mouse, um filete dourado se abre no topo e a borda escurece levemente;
-- botões e itens: reflexo discreto e leve afundar ao clicar;
-- números contam ao abrir a tela; anéis, barras e colunas da semana se preenchem (o dia de hoje em tinta);
-- entrada curta e escalonada dos blocos e transição entre telas;
-- login: o selo acompanha suavemente o mouse;
-- celebração com estrelas apenas ao concluir o onboarding; halo no botão de sessão de estudo.
-
-Com `prefers-reduced-motion`, tudo isso é desligado.
+**Evitado de propósito**: manchas de luz desfocadas, partículas, vidro fosco, texto em degradê, ícones em quadradinhos coloridos e cantos muito arredondados — marcas de interface genérica.

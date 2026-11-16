@@ -8,7 +8,7 @@ import { botaoClasses } from "@/components/ui/button";
 export function ContinuarCard({ item }: { item: PainelData["continuar"] }) {
   return (
     <Card className="flex flex-col">
-      <CardTitulo icone={<PlayCircle className="h-4 w-4" />}>Continuar de onde parei</CardTitulo>
+      <CardTitulo numero="III">Continuar de onde parei</CardTitulo>
       {item ? (
         <>
           <p className="font-semibold leading-snug">{item.titulo}</p>

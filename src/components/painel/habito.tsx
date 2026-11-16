@@ -12,7 +12,7 @@ export function HabitoCard({ streak, semana, xpSemana, nivel }: { streak: Painel
   const maxDia = Math.max(60, ...semana.dias.map((d) => d.minutos));
   return (
     <Card>
-      <CardTitulo icone={<Flame className="h-4 w-4" />}>Constância</CardTitulo>
+      <CardTitulo numero="II">Constância</CardTitulo>
       <div className="flex items-center gap-5">
         <Anel valor={progresso} rotulo={`Meta semanal: ${Math.round(progresso * 100)}%`}>
           <div>
@@ -34,7 +34,7 @@ export function HabitoCard({ streak, semana, xpSemana, nivel }: { streak: Painel
       </div>
 
       {streak.emRisco && (
-        <p className="mt-4 rounded-lg bg-revisar-suave px-3 py-2 text-sm font-medium text-revisar">Sua sequência está em risco: cumpra a meta mínima hoje.</p>
+        <p className="mt-4 rounded-[4px] bg-revisar-suave px-3 py-2 text-sm font-medium text-revisar">Sua sequência está em risco: cumpra a meta mínima hoje.</p>
       )}
 
       {/* Mini-gráfico dos últimos 7 dias */}

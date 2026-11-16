@@ -4,14 +4,14 @@ export function Campo({ rotulo, ...props }: InputHTMLAttributes<HTMLInputElement
   return (
     <label className="block">
       <span className="mb-1.5 block text-sm font-medium">{rotulo}</span>
-      <input {...props} className="h-12 w-full rounded-xl border border-borda bg-superficie-alta/80 px-4 text-base text-texto shadow-inner shadow-black/[.02] transition duration-300 placeholder:text-texto-suave/70 hover:border-destaque/40 focus:border-destaque focus:bg-superficie-alta focus:outline-none focus:ring-4 focus:ring-destaque/15" />
+      <input {...props} className="h-12 w-full rounded-[4px] border border-borda bg-superficie-alta/80 px-4 text-base text-texto shadow-inner shadow-black/[.02] transition duration-300 placeholder:text-texto-suave/70 hover:border-destaque/40 focus:border-destaque focus:bg-superficie-alta focus:outline-none focus:ring-4 focus:ring-destaque/15" />
     </label>
   );
 }
 
 export function Aviso({ tipo, children }: { tipo: "erro" | "ok"; children: React.ReactNode }) {
   return (
-    <p role={tipo === "erro" ? "alert" : "status"} className={tipo === "erro" ? "rounded-xl bg-erro-suave px-4 py-3 text-sm font-medium text-erro" : "rounded-xl bg-acerto-suave px-4 py-3 text-sm font-medium text-acerto"}>
+    <p role={tipo === "erro" ? "alert" : "status"} className={tipo === "erro" ? "rounded-[4px] bg-erro-suave px-4 py-3 text-sm font-medium text-erro" : "rounded-[4px] bg-acerto-suave px-4 py-3 text-sm font-medium text-acerto"}>
       {children}
     </p>
   );

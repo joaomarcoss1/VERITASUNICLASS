@@ -36,8 +36,8 @@ export default function Home() {
               { i: Gauge, t: "Onde você erra", d: "Domínio por assunto, não só % de acerto." },
               { i: CalendarCheck2, t: "Hábito", d: "Sequência, escudos e metas realistas." },
             ].map(({ i: Icon, t, d }) => (
-              <li key={t} className="group reflexo rounded-2xl border border-white/10 p-5 transition duration-300 ease-premium hover:border-veritas-ouro/40 hover:bg-white/[.03]">
-                <span className="mb-3 grid h-10 w-10 place-items-center rounded-xl ring-1 ring-veritas-ouro/30"><Icon className="h-5 w-5 text-veritas-ouro" /></span>
+              <li key={t} className="group reflexo rounded-[6px] border border-white/10 p-5 transition duration-300 ease-premium hover:border-veritas-ouro/40 hover:bg-white/[.03]">
+                <span className="mb-3 grid h-10 w-10 place-items-center rounded-[4px] ring-1 ring-veritas-ouro/30"><Icon className="h-5 w-5 text-veritas-ouro" /></span>
                 <p className="font-semibold">{t}</p>
                 <p className="mt-1 text-sm text-veritas-pergaminho/65">{d}</p>
               </li>
