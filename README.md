@@ -4,12 +4,21 @@ Plataforma de cursos preparatórios, banco de questões comentadas, simulados e 
 
 > **Fase 1 — Fundação** (esta entrega): design system, login/cadastro, onboarding, painel do aluno, navegação, modelo de dados completo com RLS, triggers de agregação e seeds. Os demais módulos aparecem na navegação com o estado "chega na Fase X".
 
-## Rodando
+## Rodando no seu computador
+
+**Jeito mais fácil:** instale o [Node.js LTS](https://nodejs.org) (20 ou mais novo), baixe o projeto e dê dois cliques em **`INICIAR-WINDOWS.bat`** (Windows) ou rode **`./iniciar.sh`** (Mac/Linux). Ele confere o Node, instala as dependências na primeira vez e abre `http://localhost:3000/inicio`.
+
+Pelo terminal:
 
 ```bash
 npm install
 npm run dev
 ```
+
+Problemas comuns:
+- **"node não é reconhecido"** → o Node.js não está instalado (ou feche e abra o terminal depois de instalar).
+- **"Could not read package.json"** → o comando foi rodado fora da pasta do projeto; entre nela com `cd veritasuniclass`.
+- **Porta 3000 em uso** → rode `npx next dev -p 3001` e abra `http://localhost:3001/inicio`.
 
 Sem variáveis do Supabase o app abre em **modo demonstração** (aluno fictício com 60 dias de histórico, nada é gravado). Para usar contas reais, copie `.env.example` para `.env.local` e preencha.
 
